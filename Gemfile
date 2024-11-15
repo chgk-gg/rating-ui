@@ -5,7 +5,7 @@ source "https://rubygems.org"
 gem "bootsnap", ">= 1.4.4", require: false
 gem "cssbundling-rails", "~> 1.4"
 gem "hiredis"
-gem "honeybadger", "~> 5.19"
+gem "honeybadger", "~> 5.22"
 gem "jsbundling-rails", "~> 1.3"
 gem "lograge"
 gem "newrelic_rpm"
