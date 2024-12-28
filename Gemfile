@@ -28,6 +28,7 @@ gem "turbo-rails"
 gem "view_component"
 
 group :development do
+  gem "benchmark"
   gem "rack-mini-profiler"
   gem "rubocop"
   gem "rubocop-rails"
