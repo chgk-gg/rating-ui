@@ -10,7 +10,7 @@ if Rails.env.production?
 end
 
 Rails.application.routes.draw do
-  mount Sidekiq::Web, at: "/jobs"
+  mount MissionControl::Jobs::Engine, at: "/jobs"
 
   get "reindex", to: "reindex#reindex"
   get "ping", to: "healthcheck#ping"
