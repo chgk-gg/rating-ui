@@ -15,7 +15,7 @@ class TrueDLCalculator
     TrueDLCalculator.new(tournament_id, model_name).run
   end
 
-  def self.calculate_for_all_maii_tournaments(model_name:)
+  def self.calculate_for_all_tournaments_since_2021(model_name:)
     model = Model.find_by(name: model_name)
     unless model
       Rails.logger.error "no model with the name #{model_name}"
