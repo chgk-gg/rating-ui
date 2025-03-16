@@ -247,9 +247,9 @@ GEM
     rapidjson (0.4.0)
     rdoc (6.7.0)
       psych (>= 4.0.0)
-    redis (5.3.0)
+    redis (5.4.0)
       redis-client (>= 0.22.0)
-    redis-client (0.23.2)
+    redis-client (0.24.0)
       connection_pool
     regexp_parser (2.10.0)
     reline (0.5.10)
@@ -462,8 +462,8 @@ CHECKSUMS
   rake (13.2.1) sha256=46cb38dae65d7d74b6020a4ac9d48afed8eb8149c040eccf0523bec91907059d
   rapidjson (0.4.0) sha256=a1dd5caefa6da363ae752aa7615c929cf118ac22036d6df135c21af651a6e874
   rdoc (6.7.0) sha256=b17d5f0f57b0853d7b880d4360a32c7caf8dbb81f8503a36426df809e617f379
-  redis (5.3.0) sha256=6bf810c5ae889187f0c45f77db503310980310afa57cf1640d57f419ccda72b1
-  redis-client (0.23.2) sha256=e33bab6682c8155cfef95e6dd296936bb9c2981a89fb578ace27a076fa2836fa
+  redis (5.4.0) sha256=798900d869418a9fc3977f916578375b45c38247a556b61d58cba6bb02f7d06b
+  redis-client (0.24.0) sha256=ee65ee39cb2c38608b734566167fd912384f3c1241f59075e22858f23a085dbb
   regexp_parser (2.10.0) sha256=cb6f0ddde88772cd64bff1dbbf68df66d376043fe2e66a9ef77fcb1b0c548c61
   reline (0.5.10) sha256=1660c969a792ebd034e6ceee8ca628f3b6698dcdb34f7a282a5edda37b958166
   request_store (1.6.0) sha256=2d2c4d341ca515ae7ba40ae7aaa43bd90cd320bf69e814562a7369a0d4e1a44d
