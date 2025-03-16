@@ -35,7 +35,7 @@ module RatingUi
     # config.eager_load_paths << Rails.root.join("extras")
     config.action_controller.default_url_options = {trailing_slash: true}
 
-    config.i18n.available_locales = :ru
+    config.i18n.available_locales = [:en, :ru]
     config.i18n.default_locale = :ru
     # Don't generate system test files.
     config.generators.system_tests = nil
