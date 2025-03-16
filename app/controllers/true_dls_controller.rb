@@ -2,7 +2,7 @@
 
 class TrueDlsController < ApplicationController
   def recalculate
-    TrueDLForMAIITournamentsJob.perform_later(params_model)
+    TrueDLForAllTournamentsJob.perform_later(params_model)
     redirect_to :root
   end
 
