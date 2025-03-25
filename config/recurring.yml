@@ -1,0 +1,5 @@
+production:
+  recent_tournament_results:
+    class: RecentTournamentResultsJob
+    args: [ 28 ]
+    schedule: 35 */2 * * *
