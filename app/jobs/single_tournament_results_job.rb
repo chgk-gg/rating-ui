@@ -2,6 +2,7 @@
 
 class SingleTournamentResultsJob < ApplicationJob
   queue_as :default
+  limits_concurrency to: 2, key: :chgk_info_api
 
   attr_reader :tournament_id, :api_client
 
