@@ -3,3 +3,6 @@ production:
     class: RecentTournamentResultsJob
     args: [ 28 ]
     schedule: 35 */2 * * *
+  clear_finished_jobs:
+    command: "SolidQueue::Job.clear_finished_in_batches"
+    schedule: every day at 16:00

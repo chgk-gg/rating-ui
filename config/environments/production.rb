@@ -66,4 +66,6 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
   config.cache_store = :redis_cache_store, {url: ENV.fetch("REDIS_URL", nil)}
   config.secret_key_base = ENV.fetch("SECRET_KEY_BASE", nil)
+
+  config.solid_queue.clear_finished_jobs_after = 7.days
 end
