@@ -7,19 +7,15 @@ class ReleasesController < ApplicationController
     return render_404 if id.nil?
 
     teams = current_model.teams_for_release(release_id: id, from:, to:, team_name: team, city:)
-    puts("teams in ReleasesController: #{teams}") if $TEST_DEBUG
     @release = ReleasePresenter.new(id:, teams:)
-    puts("@release in ReleasesController: #{@release}") if $TEST_DEBUG
 
     all_teams_count = current_model.count_all_teams_in_release(release_id: id, team_name: team, city:)
-    puts("all_teams_count in ReleasesController: #{all_teams_count}") if $TEST_DEBUG
     @paging = Paging.new(items_count: all_teams_count, from:, to:)
 
     @filtered = city.present? || team.present?
 
     @releases_in_dropdown = list_releases_for_dropdown
     @model_name = current_model.name
-    puts("@model_name in ReleasesController: #{@model_name}") if $TEST_DEBUG
   end
 
   def clean_params
