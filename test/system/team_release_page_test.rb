@@ -4,7 +4,7 @@ require "minitest/autorun"
 class TeamReleasePageTest < ActionDispatch::IntegrationTest
   def assert_row_has_correct_team(row, expected_place, expected_team, expected_city, expected_rating)
     place, team, city, rating = row
-    assert_equal place, expected_place
+    assert_equal place, expected_place, wait: 5
     assert_equal team, expected_team
     assert_equal city, expected_city
     assert_equal rating, expected_rating
