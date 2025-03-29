@@ -8,6 +8,5 @@ fi
 # Default to port 3000 if not specified
 export PORT="${PORT:-3000}"
 export NEW_RELIC_INSTRUMENTATION_VIEW_COMPONENT=disabled
-export NEWRELIC_AGENT_ENABLED=false
 
 exec foreman start -f Procfile.dev "$@"
