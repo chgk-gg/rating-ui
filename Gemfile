@@ -41,4 +41,6 @@ group :test do
   gem "brakeman"
   gem "capybara"
   gem "minitest"
+  gem "vcr"
+  gem "webmock"
 end

@@ -13,6 +13,7 @@ staging:
 
 test:
   <<: *default
+  url: <%= ENV['DATABASE_URL'] || 'postgres://postgres:postgres@localhost:5432/test_db' %>
 
 development:
   <<: *default

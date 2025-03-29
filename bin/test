@@ -2,7 +2,6 @@
 
 export RAILS_ENV=test
 export DATABASE_URL="postgres://postgres:postgres@localhost:5432/test_db"
-export NEWRELIC_AGENT_ENABLED=false
 
 if [ -n "$1" ]; then
   export SEED=$1
