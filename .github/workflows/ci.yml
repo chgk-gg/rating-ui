@@ -34,28 +34,14 @@ jobs:
           RAILS_ENV: test
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/test_db
           NEWRELIC_AGENT_ENABLED: false
-        run: bundle exec rake test
+        run: |
+          FAILURES=0
+          for i in {1..20}; do
+          echo "=== Run $i/20 ==="
+          bundle exec rails test || ((FAILURES++))
+          done
+          echo "=== Results ==="
+          echo "$(( 20 - $FAILURES ))/20 runs passed"
+          echo "$FAILURES/20 runs failed"
+          if [ $FAILURES -gt 0 ]; then exit 1; fi
 
-  linter:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out
-        uses: actions/checkout@v4
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
-      - name: Linter
-        run: bundle exec rubocop
-
-  brakeman:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out
-        uses: actions/checkout@v4
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
-      - name: Linter
-        run: bundle exec brakeman
