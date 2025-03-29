@@ -15,22 +15,6 @@ class TrueDLCalculator
     TrueDLCalculator.new(tournament_id, model_name).run
   end
 
-  def self.calculate_for_all_tournaments_since_2021(model_name:)
-    model = Model.find_by(name: model_name)
-    unless model
-      Rails.logger.error "no model with the name #{model_name}"
-      return
-    end
-
-    tournaments = Tournament.where("start_datetime >= '2021-09-01'").pluck(:id)
-    Rails.logger.info "calculating truedl for #{tournaments.size} tournaments"
-
-    tournaments.each_with_index do |tournament_id, index|
-      calculate_for_tournament(tournament_id:, model_name:)
-      Rails.logger.info "Progress: #{index + 1}/#{tournaments.size}" if (index + 1) % 10 == 0
-    end
-  end
-
   attr_reader :tournament_id, :model
 
   def initialize(tournament_id, model_name)
