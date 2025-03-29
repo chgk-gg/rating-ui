@@ -41,15 +41,14 @@ class TeamReleasePageTest < ActionDispatch::IntegrationTest
   end
 
   test "release can be opened by its id" do
+    $TEST_DEBUG = true
     visit "/b/2"
-
-    puts "Page HTML: #{page.html}"
-    puts "Teams data: #{latest_release_teams.inspect}"
 
     latest_release_teams.each do |place, team|
       assert_row_has_correct_team(all("table tr:nth-child(#{place}) td").map(&:text), *team)
     end
 
     assert_selector "table tbody tr", count: 4
+    $TEST_DEBUG = false
   end
 end
