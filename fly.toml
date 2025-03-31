@@ -52,4 +52,9 @@ worker = "bundle exec rake solid_queue:start"
 [[vm]]
   size = "shared-cpu-1x"
   memory = "512mb"
-  processes = ["server", "worker"]
+  processes = ["server"]
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "1gb"
+  processes = ["worker"]
