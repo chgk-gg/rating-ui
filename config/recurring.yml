@@ -1,8 +1,27 @@
 production:
+  # Every two hours we load data for the most recent tournaments
   recent_tournament_results:
     class: RecentTournamentResultsJob
     args: [ 28 ]
     schedule: 35 */2 * * *
+
+  # Many tournaments open their results at 20:59 UTC
+  just_opened_tournament_results:
+    class: RecentTournamentResultsJob
+    args: [ 3 ]
+    schedule: 0 21 * * *
+
+  # Once a day we update data for all tournaments in the past year
+  last_year_tournament_results:
+    class: RecentTournamentResultsJob
+    args: [ 365 ]
+    schedule: 15 2 * * *
+
+  # One a week we update data for all rating tournaments since September 2021
+  all_rating_tournament_results:
+    class: AllRatingTournamentResultsJob
+    schedule: 15 4 * * WED
+
   clear_finished_jobs:
     command: "SolidQueue::Job.clear_finished_in_batches"
     schedule: every day at 16:00
