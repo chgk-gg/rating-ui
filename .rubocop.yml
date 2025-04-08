@@ -51,7 +51,7 @@ Metrics/AbcSize:
 Rails/SkipsModelValidations:
   Exclude:
     - 'app/lib/model_indexer.rb'
-    - 'app/jobs/single_tournament_results_job.rb'
+    - 'app/jobs/*.rb'
 
 Rails/SquishedSQLHeredocs:
   Enabled: false

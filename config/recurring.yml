@@ -22,6 +22,11 @@ production:
     class: AllRatingTournamentResultsJob
     schedule: 15 4 * * WED
 
+  # Names and towns for teams
+  teams:
+    class: TeamsJob
+    schedule: 30 16 * * *
+
   clear_finished_jobs:
     command: "SolidQueue::Job.clear_finished_in_batches"
     schedule: every day at 16:00
