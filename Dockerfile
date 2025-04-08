@@ -24,7 +24,7 @@ FROM base AS build
 
 # Install packages needed to build gems and node modules
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential curl libpq-dev node-gyp pkg-config python-is-python3 unzip
+    apt-get install --no-install-recommends -y build-essential curl libpq-dev node-gyp pkg-config python-is-python3 unzip libyaml-dev
 
 COPY .bun-version ./
 ENV BUN_INSTALL=/usr/local/bun
