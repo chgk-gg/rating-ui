@@ -22,7 +22,7 @@ class MaterializedViews
   private
 
   def increase_statement_timeout!
-    ActiveRecord::Base.connection.execute("SET statement_timeout TO 120000;")
+    ActiveRecord::Base.connection.execute("SET statement_timeout TO 300000;")
   end
 
   def decrease_statement_timeout!
