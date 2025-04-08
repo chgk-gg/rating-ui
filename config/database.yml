@@ -4,6 +4,7 @@ default: &default
   pool: 5
   variables:
     statement_timeout: <%= ENV.fetch("DATABASE_STATEMENT_TIMEOUT", 5000)%>
+    idle_in_transaction_session_timeout: <%= ENV.fetch("DATABASE_IDLE_IN_TRANSACTION_SESSION_TIMEOUT", 300_000)%>
 
 production:
   <<: *default
