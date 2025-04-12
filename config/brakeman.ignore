@@ -3,20 +3,20 @@
     {
       "warning_type": "SQL Injection",
       "warning_code": 0,
-      "fingerprint": "6cf9c120a17824129aa31ea6f137a50cf41da6270444cde08448f147be48f733",
+      "fingerprint": "5cb3eefe998bc1686fb15aae1963a03b49d2bb1d8f4417028f31c50972e42db4",
       "check_name": "SQL",
       "message": "Possible SQL injection",
-      "file": "app/lib/materialized_views.rb",
-      "line": 50,
+      "file": "app/jobs/materialized_views_job.rb",
+      "line": 36,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "ActiveRecord::Base.connection.exec_query(\"refresh materialized view #{model}.#{definition.name}\")",
+      "code": "ActiveRecord::Base.connection.exec_query(\"create materialized view if not exists #{@model}.#{definition.name}\\nas #{definition.query}\\nwith no data\\n\")",
       "render_path": null,
       "location": {
         "type": "method",
-        "class": "MaterializedViews",
+        "class": "MaterializedViewsJob",
         "method": "create_or_refresh_view"
       },
-      "user_input": "model",
+      "user_input": "@model",
       "confidence": "Medium",
       "cwe_id": [
         89
@@ -26,50 +26,26 @@
     {
       "warning_type": "SQL Injection",
       "warning_code": 0,
-      "fingerprint": "afd07fbaab9cb6644e7360c4135eeab32a3f685e137af5d6719198a8c2bebca6",
+      "fingerprint": "873b5c2c319025c31828f81c5422b728366e3934f6a935f724dc4ab83e730b80",
       "check_name": "SQL",
       "message": "Possible SQL injection",
-      "file": "app/lib/materialized_views.rb",
-      "line": 49,
+      "file": "app/jobs/materialized_views_job.rb",
+      "line": 37,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "ActiveRecord::Base.connection.exec_query(\"create materialized view if not exists #{model}.#{definition.name}\\nas #{definition.query}\\nwith no data\\n\")",
+      "code": "ActiveRecord::Base.connection.exec_query(\"refresh materialized view #{@model}.#{definition.name}\")",
       "render_path": null,
       "location": {
         "type": "method",
-        "class": "MaterializedViews",
+        "class": "MaterializedViewsJob",
         "method": "create_or_refresh_view"
       },
-      "user_input": "model",
+      "user_input": "@model",
       "confidence": "Medium",
       "cwe_id": [
         89
       ],
       "note": "model can only be a Model.name"
-    },
-    {
-      "warning_type": "SQL Injection",
-      "warning_code": 0,
-      "fingerprint": "e342c0e07372b645918cba495824c30faad7b5b0ae35ce09a648d5d0d4c63f55",
-      "check_name": "SQL",
-      "message": "Possible SQL injection",
-      "file": "app/lib/materialized_views.rb",
-      "line": 30,
-      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "ActiveRecord::Base.connection.execute(\"SET statement_timeout TO #{ENV.fetch(\"DATABASE_STATEMENT_TIMEOUT\", 5000)};\")",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "MaterializedViews",
-        "method": "decrease_statement_timeout!"
-      },
-      "user_input": "ENV.fetch(\"DATABASE_STATEMENT_TIMEOUT\", 5000)",
-      "confidence": "Medium",
-      "cwe_id": [
-        89
-      ],
-      "note": ""
     }
   ],
-  "updated": "2024-08-10 18:18:40 +0200",
-  "brakeman_version": "6.1.2"
+  "brakeman_version": "7.0.2"
 }

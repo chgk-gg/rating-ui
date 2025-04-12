@@ -9,6 +9,8 @@ require "capybara/rails"
 require "capybara/minitest"
 require_relative "factories"
 
+Rails.root.glob("test/jobs/**/*_test.rb").each { require it }
+
 class ActionDispatch::IntegrationTest
   include ActiveRecord::TestFixtures
   include Capybara::DSL
@@ -30,7 +32,7 @@ VCR.configure do |config|
 end
 
 ModelIndexer.run
-MaterializedViews.recreate_all(model: InModel::DEFAULT_MODEL)
+MaterializedViewsJob.perform_now(InModel::DEFAULT_MODEL)
 
 ActiveRecord::Base.connection.execute("TRUNCATE b.release RESTART IDENTITY CASCADE")
 ActiveRecord::Base.connection.execute("TRUNCATE b.team_rating RESTART IDENTITY CASCADE")
