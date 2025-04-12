@@ -40,7 +40,7 @@ class MaterializedViews
       as #{definition.query}
       with no data
     SQL
-    refresh_query = "refresh materialized view #{@model}.#{definition.name}"
+    refresh_query = "refresh materialized view concurrently #{@model}.#{definition.name}"
     index_queries = definition.index_columns.map do |column|
       index_name = "#{definition.name}_#{column}_idx"
       "create index if not exists #{index_name} on #{@model}.#{definition.name} (#{column})"
