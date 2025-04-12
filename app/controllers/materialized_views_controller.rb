@@ -2,7 +2,7 @@
 
 class MaterializedViewsController < ApplicationController
   def recreate_views
-    MaterializedViews.recreate_all(model: params_model)
+    MaterializedViewsJob.perform_later(params_model)
     redirect_to :root
   end
 

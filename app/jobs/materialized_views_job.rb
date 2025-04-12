@@ -1,34 +1,21 @@
 # frozen_string_literal: true
 
-class MaterializedViews
+class MaterializedViewsJob < ApplicationJob
+  queue_as :transform
+
   ViewDefinition = Struct.new("ViewDefinition", :name, :query, :index_columns, keyword_init: true)
 
-  def self.recreate_all(model:)
+  def perform(model)
     return if model.blank?
 
-    MaterializedViews.new(model).recreate_all
-  end
-
-  def initialize(model)
     @model = model
-  end
-
-  def recreate_all
-    increase_statement_timeout!
-    definitions.each { |definition| create_or_refresh_view(definition) }
-    decrease_statement_timeout!
+    ActiveRecord::Base.transaction do
+      ActiveRecord::Base.connection.execute("SET LOCAL statement_timeout TO 300000")
+      definitions.each { |definition| create_or_refresh_view(definition) }
+    end
   end
 
   private
-
-  def increase_statement_timeout!
-    ActiveRecord::Base.connection.execute("SET statement_timeout TO 300000;")
-  end
-
-  def decrease_statement_timeout!
-    default_timeout = ENV.fetch("DATABASE_STATEMENT_TIMEOUT", 5000)
-    ActiveRecord::Base.connection.execute("SET statement_timeout TO #{default_timeout};")
-  end
 
   def definitions
     [player_ranking, team_ranking]
