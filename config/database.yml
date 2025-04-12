@@ -8,6 +8,8 @@ default: &default
 
 production:
   <<: *default
+  connect_timeout: 5
+  checkout_timeout: 5
 
 staging:
   <<: *default
