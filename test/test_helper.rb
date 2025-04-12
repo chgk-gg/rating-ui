@@ -32,6 +32,8 @@ VCR.configure do |config|
 end
 
 ModelIndexer.run
+ActiveRecord::Base.connection.execute("DROP MATERIALIZED VIEW IF EXISTS b.team_ranking")
+ActiveRecord::Base.connection.execute("DROP MATERIALIZED VIEW IF EXISTS b.player_ranking")
 MaterializedViewsJob.perform_now(InModel::DEFAULT_MODEL)
 
 ActiveRecord::Base.connection.execute("TRUNCATE b.release RESTART IDENTITY CASCADE")
