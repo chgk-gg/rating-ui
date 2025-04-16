@@ -57,9 +57,9 @@ module PlayerQueries
 
   def player_releases(player_id:)
     sql = <<~SQL
-      select rel.id, rel.date, ranking.place, ranking.rating, ranking.rating_change
+      select rel.id, rel.date, pr.place::integer, pr.rating, pr.rating_change
       from #{name}.release rel
-      left join #{name}.player_ranking ranking on ranking.player_id = $1 and ranking.release_id = rel.id
+      left join #{name}.player_rating pr on pr.player_id = $1 and pr.release_id = rel.id
       order by rel.date desc;
     SQL
 
@@ -92,7 +92,7 @@ module PlayerQueries
 
     sql = <<~SQL
       select tr.player_id, tr.rating
-      from #{name}.player_ranking tr
+      from #{name}.player_rating tr
       left join #{name}.release r on tr.release_id = r.id
       where r.date = $1 and tr.player_id IN (#{placeholders})
     SQL

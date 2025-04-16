@@ -26,7 +26,7 @@ class MaterializedViewsJob < ApplicationJob
   end
 
   def definitions
-    [player_ranking, team_ranking]
+    [team_ranking]
   end
 
   def view_exists?(definition)
@@ -64,19 +64,6 @@ class MaterializedViewsJob < ApplicationJob
   def refresh_view(definition)
     refresh_query = "refresh materialized view concurrently #{@model}.#{definition.name}"
     ActiveRecord::Base.connection.exec_query(refresh_query)
-  end
-
-  def player_ranking
-    ViewDefinition.new(
-      name: "player_ranking",
-      index_columns: %w[player_id release_id place],
-      unique_index_columns: %w[player_id release_id],
-      query: <<~SQL
-        select rank() over (partition by release_id order by rating desc) as place,
-            player_id, rating, rating_change, release_id
-        from #{@model}.player_rating
-      SQL
-    )
   end
 
   def team_ranking

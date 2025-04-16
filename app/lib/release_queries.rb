@@ -225,9 +225,11 @@ module ReleaseQueries
           left join ordered o2 on o1.row_number = o2.row_number + 1
       )
 
-      select r.*, prev.place as previous_place, r.place - prev.place as place_change
-      from #{name}.player_ranking r
-      left join #{name}.player_ranking prev
+      select r.release_id, r.player_id, r.rating, r.rating_change, r.place::integer, 
+          prev.place::integer as previous_place, 
+          r.place::integer - prev.place::integer as place_change
+      from #{name}.player_rating r
+      left join #{name}.player_rating prev
         on r.player_id = prev.player_id
             and prev.release_id = (select prev_release_id from releases where release_id = $1)
       where r.release_id = $1
@@ -251,12 +253,12 @@ module ReleaseQueries
           left join ordered o2 on o1.row_number = o2.row_number + 1
       )
 
-      select r.*,
-        prev.place as previous_place,
-        r.place - prev.place as place_change,
+      select r.release_id, r.player_id, r.rating, r.rating_change, r.place::integer,
+        prev.place::integer as previous_place,
+        (r.place::integer - prev.place::integer) as place_change,
         p.first_name || ' ' || p.last_name as name
-      from #{name}.player_ranking r
-      left join #{name}.player_ranking prev
+      from #{name}.player_rating r
+      left join #{name}.player_rating prev
         on r.player_id = prev.player_id
           and prev.release_id = (select prev_release_id from releases where release_id = $1)
       left join public.players p 

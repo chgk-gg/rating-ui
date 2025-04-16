@@ -28,7 +28,6 @@ class MaterializedViewsJobTest < ActiveSupport::TestCase
       )
     SQL
 
-    @connection.execute("DROP MATERIALIZED VIEW IF EXISTS #{@schema}.player_ranking")
     @connection.execute("DROP MATERIALIZED VIEW IF EXISTS #{@schema}.team_ranking")
   end
 
@@ -39,16 +38,9 @@ class MaterializedViewsJobTest < ActiveSupport::TestCase
   def test_perform_creates_materialized_views
     MaterializedViewsJob.perform_now(@schema)
 
-    assert view_exists?("player_ranking"), "player_ranking view was not created"
     assert view_exists?("team_ranking"), "team_ranking view was not created"
 
-    assert_columns_exist("player_ranking", %w[place player_id rating rating_change release_id])
     assert_columns_exist("team_ranking", %w[place team_id rating rating_change release_id trb])
-
-    %w[player_id release_id place].each do |column|
-      index_name = "player_ranking_#{column}_idx"
-      assert index_exists?("player_ranking", index_name), "Index #{index_name} should exist"
-    end
 
     %w[team_id release_id place].each do |column|
       index_name = "team_ranking_#{column}_idx"
