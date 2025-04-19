@@ -64,6 +64,9 @@ ENV LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2
 
 # Run and own the application files as a non-root user for security
 RUN useradd rails --home /rails --shell /bin/bash
+RUN mkdir -p /rails/tmp/backups && \
+    chown -R rails:rails /rails/tmp/backups && \
+    chmod 755 /rails/tmp/backups
 USER rails:rails
 
 # Copy built artifacts: gems, application

@@ -1,6 +1,29 @@
 {
   "ignored_warnings": [
     {
+      "warning_type": "Command Injection",
+      "warning_code": 14,
+      "fingerprint": "4175473d0699de43bb2659492c97263fbf754d6cd541e9a01cd3f15a80eb2813",
+      "check_name": "Execute",
+      "message": "Possible command injection",
+      "file": "app/jobs/backup_job.rb",
+      "line": 11,
+      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
+      "code": "Open3.capture3(\"pg_dump -n public -n b -Fc -f #{Rails.root.join(\"tmp/backups/rating.backup\")} #{connection_string}\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "BackupJob",
+        "method": "perform"
+      },
+      "user_input": "Rails.root.join(\"tmp/backups/rating.backup\")",
+      "confidence": "Medium",
+      "cwe_id": [
+        77
+      ],
+      "note": ""
+    },
+    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "941cc26d45719acdcb88134079936420d773d0b69454b2f52e38b8d626b86182",
@@ -30,7 +53,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/jobs/materialized_views_job.rb",
-      "line": 67,
+      "line": 66,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "ActiveRecord::Base.connection.exec_query(\"refresh materialized view concurrently #{@model}.#{definition.name}\")",
       "render_path": null,
@@ -91,6 +114,29 @@
         89
       ],
       "note": "model can only be a Model.name"
+    },
+    {
+      "warning_type": "Command Injection",
+      "warning_code": 14,
+      "fingerprint": "f35715e9e8549d2e59f35b2ae7f491a103f0bc093ee6e30fcc8bc514d6de6c53",
+      "check_name": "Execute",
+      "message": "Possible command injection",
+      "file": "app/jobs/backup_job.rb",
+      "line": 23,
+      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
+      "code": "`rm -f #{local_backup_file_name}`",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "BackupJob",
+        "method": "perform"
+      },
+      "user_input": "local_backup_file_name",
+      "confidence": "Medium",
+      "cwe_id": [
+        77
+      ],
+      "note": ""
     }
   ],
   "brakeman_version": "7.0.2"
