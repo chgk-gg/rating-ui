@@ -8,10 +8,8 @@ class PlayerReleasesController < ApplicationController
     @releases_in_dropdown = list_releases_for_dropdown
 
     @players = current_model.players_for_release(release_id: @release_id, from:, to:, first_name:, last_name:)
-    all_players_count = current_model.count_all_players_in_release(release_id: @release_id, first_name:, last_name:)
-    @paging = Paging.new(items_count: all_players_count, from:, to:)
-
     @filtered = first_name.present? || last_name.present?
+    @paging = Paging.new(items_count: all_players_count, from:, to:)
 
     @model_name = current_model.name
   end
@@ -34,6 +32,14 @@ class PlayerReleasesController < ApplicationController
 
   def last_name
     @last_name ||= clean_params[:last_name]&.gsub("*", "")
+  end
+
+  def all_players_count
+    if @filtered
+      current_model.count_all_players_in_release_with_filters(release_id: @release_id, first_name:, last_name:)
+    else
+      current_model.count_all_players_in_release(release_id: @release_id)
+    end
   end
 
   def list_releases_for_dropdown

@@ -158,7 +158,19 @@ module ReleaseQueries
     exec_query_for_single_value(query: sql)
   end
 
-  def count_all_teams_in_release(release_id:, team_name: nil, city: nil)
+  def count_all_teams_in_release(release_id:)
+    sql = <<~SQL
+      select count(*)
+      from #{name}.team_rating tr
+      left join public.teams t on t.id = tr.team_id
+      left join public.towns town on town.id = t.town_id
+      where tr.release_id = $1
+    SQL
+
+    exec_query_for_single_value(query: sql, params: [release_id], default_value: 0, cache: true)
+  end
+
+  def count_all_teams_in_release_with_filters(release_id:, team_name: nil, city: nil)
     sql = <<~SQL
       select count(*)
       from #{name}.team_rating tr
@@ -272,7 +284,18 @@ module ReleaseQueries
     exec_query_for_hash_array(query: sql, params: [release_id, limit, offset])
   end
 
-  def count_all_players_in_release(release_id:, first_name: nil, last_name: nil)
+  def count_all_players_in_release(release_id:)
+    sql = <<~SQL
+      select count(*)
+      from #{name}.player_rating pr
+      left join public.players p on p.id = pr.player_id
+      where release_id = $1
+    SQL
+
+    exec_query_for_single_value(query: sql, params: [release_id], default_value: 0, cache: true)
+  end
+
+  def count_all_players_in_release_with_filters(release_id:, first_name:, last_name:)
     sql = <<~SQL
       select count(*)
       from #{name}.player_rating pr
