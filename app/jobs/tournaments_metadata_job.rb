@@ -66,14 +66,14 @@ class TournamentsMetadataJob < ApplicationJob
 
   def fetch_page(page_number)
     case category
-    when :rating
+    when "rating"
       api_client.rating_tournaments(page: page_number)
-    when :all
+    when "all"
       api_client.all_tournaments(page: page_number)
-    when :recently_edited
+    when "recently_updated"
       api_client.tournaments_updated_after(date: last_week, page: page_number)
     else
-      raise ArgumentError, "category should be one of :all, :rating, :recently_edited"
+      raise ArgumentError, "category should be one of all, rating, recently_updated"
     end
   end
 

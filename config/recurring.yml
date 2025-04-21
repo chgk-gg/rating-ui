@@ -25,13 +25,13 @@ production:
   # Once a day we refresh metadata for recently updated tournaments
   recent_tournament_metadata:
     class: TournamentsMetadataJob
-    args: [ :recently_updated ]
+    args: [ "recently_updated" ]
     schedule: every day at 2:00
 
   # Once a week we update metadata for all tournaments
   all_rating_tournaments_metadata:
     class: TournamentsMetadataJob
-    args: [ :all ]
+    args: [ "all" ]
     schedule: every Wednesday at 2:15
 
   # Names and towns for teams
