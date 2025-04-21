@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_08_205450) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_21_105044) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -178,6 +178,38 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_08_205450) do
     t.integer "town_id"
     t.datetime "updated_at", precision: nil
     t.index ["id"], name: "index_teams_on_id", unique: true
+  end
+
+  create_table "tournament_appeal_jury", force: :cascade do |t|
+    t.integer "tournament_id"
+    t.integer "player_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tournament_id", "player_id"], name: "index_tournament_appeal_jury_on_tournament_id_and_player_id", unique: true
+  end
+
+  create_table "tournament_editors", force: :cascade do |t|
+    t.integer "tournament_id"
+    t.integer "player_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tournament_id", "player_id"], name: "index_tournament_editors_on_tournament_id_and_player_id", unique: true
+  end
+
+  create_table "tournament_game_jury", force: :cascade do |t|
+    t.integer "tournament_id"
+    t.integer "player_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tournament_id", "player_id"], name: "index_tournament_game_jury_on_tournament_id_and_player_id", unique: true
+  end
+
+  create_table "tournament_organizers", force: :cascade do |t|
+    t.integer "tournament_id"
+    t.integer "player_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tournament_id", "player_id"], name: "index_tournament_organizers_on_tournament_id_and_player_id", unique: true
   end
 
   create_table "tournament_results", id: false, force: :cascade do |t|
