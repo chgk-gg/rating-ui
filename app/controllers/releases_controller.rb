@@ -9,10 +9,8 @@ class ReleasesController < ApplicationController
     teams = current_model.teams_for_release(release_id: id, from:, to:, team_name: team, city:)
     @release = ReleasePresenter.new(id:, teams:)
 
-    all_teams_count = current_model.count_all_teams_in_release(release_id: id, team_name: team, city:)
-    @paging = Paging.new(items_count: all_teams_count, from:, to:)
-
     @filtered = city.present? || team.present?
+    @paging = Paging.new(items_count: all_teams_count, from:, to:)
 
     @releases_in_dropdown = list_releases_for_dropdown
     @model_name = current_model.name
@@ -43,6 +41,14 @@ class ReleasesController < ApplicationController
       current_model&.latest_release_id
     else
       clean_params[:release_id].to_i
+    end
+  end
+
+  def all_teams_count
+    if @filtered
+      current_model.count_all_teams_in_release_with_filters(release_id: id, team_name: team, city:)
+    else
+      current_model.count_all_teams_in_release(release_id: id)
     end
   end
 
