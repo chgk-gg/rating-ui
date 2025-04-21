@@ -46,6 +46,11 @@ class TournamentsMetadataJob < ApplicationJob
         next if has_malformed_dates?(tournament)
 
         updated_count += 1 if maybe_update(tournament)
+
+        save_editors(tournament)
+        save_organizers(tournament)
+        save_game_jury(tournament)
+        save_appeal_jury(tournament)
       end
 
       Rails.logger.info "processed page #{page_number}. Cumulative update count: #{updated_count}"
@@ -79,5 +84,26 @@ class TournamentsMetadataJob < ApplicationJob
 
   def last_week
     (Time.zone.today - 7).to_s
+  end
+
+  def save_editors(tournament_hash)
+    update_helper_table(tournament_hash["id"], tournament_hash["editors"], TournamentEditor)
+  end
+
+  def save_organizers(tournament_hash)
+    update_helper_table(tournament_hash["id"], tournament_hash["organizers"], TournamentOrganizer)
+  end
+
+  def save_game_jury(tournament_hash)
+    update_helper_table(tournament_hash["id"], tournament_hash["gameJury"], TournamentGameJury)
+  end
+
+  def save_appeal_jury(tournament_hash)
+    update_helper_table(tournament_hash["id"], tournament_hash["appealJury"], TournamentAppealJury)
+  end
+
+  def update_helper_table(tournament_id, hash, model)
+    data = hash.map { {player_id: it["id"], tournament_id:} }
+    model.upsert_all(data, unique_by: %i[tournament_id player_id])
   end
 end
