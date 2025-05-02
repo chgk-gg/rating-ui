@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_02_100000) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_02_103022) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -41,6 +41,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_02_100000) do
     t.text "patronymic"
     t.text "last_name"
     t.datetime "updated_at", precision: nil
+    t.date "date_died"
+    t.integer "got_questions_tag"
     t.index ["id"], name: "index_players_on_id", unique: true
     t.index ["id"], name: "players_id_index"
   end
