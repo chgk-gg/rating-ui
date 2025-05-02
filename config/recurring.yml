@@ -39,6 +39,11 @@ production:
     class: TeamsJob
     schedule: 30 16 * * *
 
+  # Names for players
+  players:
+    class: PlayersJob
+    schedule: every day at 10:30
+
   clear_finished_jobs:
     command: "SolidQueue::Job.clear_finished_in_batches"
     schedule: every day at 16:00
