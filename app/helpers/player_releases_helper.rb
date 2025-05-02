@@ -10,7 +10,7 @@ module PlayerReleasesHelper
   def link_to_last_player_release_page(release_id:, players_in_release:, players_per_page:, first_name:, last_name:)
     top_place = (players_per_page * (players_in_release / players_per_page)) + 1
     bottom_place = top_place + players_per_page - 1
-    link_to((players_in_release / players_per_page),
+    link_to(players_in_release / players_per_page,
       player_release_path(release_id:, from: top_place, to: bottom_place, first_name:, last_name:))
   end
 
