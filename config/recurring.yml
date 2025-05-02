@@ -44,6 +44,11 @@ production:
     class: PlayersJob
     schedule: every day at 10:30
 
+  # Names of towns
+  towns:
+    class: TownsJob
+    schedule: every day at 12:00
+
   clear_finished_jobs:
     command: "SolidQueue::Job.clear_finished_in_batches"
     schedule: every day at 16:00

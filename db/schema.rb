@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_02_103022) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_02_105009) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -272,6 +272,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_02_103022) do
     t.integer "id"
     t.text "title"
     t.datetime "updated_at", precision: nil
+    t.index ["id"], name: "index_towns_on_id", unique: true
   end
 
   create_table "true_dls", force: :cascade do |t|
