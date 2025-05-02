@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class RecentTournamentResultsJob < ApplicationJob
-  queue_as :default
+  queue_as :wrappers
 
   def perform(days)
     single_tournament_jobs = recent_tournaments(days)
