@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class TeamsJob < ApplicationJob
-  queue_as :default
+  queue_as :chgk_info_import
   limits_concurrency to: 1, key: :chgk_info_api
 
   attr_reader :api_client

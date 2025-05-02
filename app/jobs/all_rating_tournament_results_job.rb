@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class AllRatingTournamentResultsJob < ApplicationJob
-  queue_as :default
+  queue_as :wrappers
 
   def perform
     single_tournament_jobs = tournaments

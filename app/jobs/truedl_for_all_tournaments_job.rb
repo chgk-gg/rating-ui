@@ -1,7 +1,7 @@
 require_relative "../lib/truedl_calculator"
 
 class TrueDLForAllTournamentsJob < ApplicationJob
-  queue_as :default
+  queue_as :wrappers
 
   def perform(model_name)
     model = Model.find_by(name: model_name)
