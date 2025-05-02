@@ -18,7 +18,9 @@ class PlayersJob < ApplicationJob
           id: player["id"],
           first_name: player["name"],
           patronymic: player["patronymic"],
-          last_name: player["surname"]
+          last_name: player["surname"],
+          date_died: player["dateDied"],
+          got_questions_tag: player["gotQuestionsTag"]
         }
       end
 
