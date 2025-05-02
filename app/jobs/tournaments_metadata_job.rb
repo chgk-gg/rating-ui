@@ -102,8 +102,10 @@ class TournamentsMetadataJob < ApplicationJob
     update_helper_table(tournament_hash["id"], tournament_hash["appealJury"], TournamentAppealJury)
   end
 
-  def update_helper_table(tournament_id, hash, model)
-    data = hash.map { {player_id: it["id"], tournament_id:} }
+  def update_helper_table(tournament_id, entries, model)
+    return unless entries
+
+    data = entries.map { {player_id: it["id"], tournament_id:} }
     model.upsert_all(data, unique_by: %i[tournament_id player_id])
   end
 end
