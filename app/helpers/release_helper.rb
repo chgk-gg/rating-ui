@@ -10,7 +10,7 @@ module ReleaseHelper
   def link_to_last_page(release_id:, teams_in_release:, teams_per_page:, team:, city:)
     top_place = (teams_per_page * (teams_in_release / teams_per_page)) + 1
     bottom_place = top_place + teams_per_page - 1
-    link_to(((teams_in_release / teams_per_page) + 1),
+    link_to((teams_in_release / teams_per_page) + 1,
       release_path(release_id:, from: top_place, to: bottom_place, team:, city:))
   end
 
