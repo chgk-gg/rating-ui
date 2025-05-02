@@ -15,12 +15,12 @@ class PlayersJob < ApplicationJob
     while players.size > 0
       player_rows = players.map do
         {
-          id: player["id"],
-          first_name: player["name"],
-          patronymic: player["patronymic"],
-          last_name: player["surname"],
-          date_died: player["dateDied"],
-          got_questions_tag: player["gotQuestionsTag"]
+          id: it["id"],
+          first_name: it["name"],
+          patronymic: it["patronymic"],
+          last_name: it["surname"],
+          date_died: it["dateDied"],
+          got_questions_tag: it["gotQuestionsTag"]
         }
       end
 
