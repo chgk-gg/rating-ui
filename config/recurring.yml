@@ -49,6 +49,12 @@ production:
     class: TownsJob
     schedule: every day at 12:00
 
+  # Start and end dates for seasons
+  # Changes should happen at most once a year, but we recheck every week
+  seasons:
+    class: SeasonsJob
+    schedule: every Thursday at 12:15
+
   clear_finished_jobs:
     command: "SolidQueue::Job.clear_finished_in_batches"
     schedule: every day at 16:00
