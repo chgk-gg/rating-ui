@@ -31,6 +31,25 @@ VCR.configure do |config|
   config.allow_http_connections_when_no_cassette = false
 end
 
+def count_queries(match_pattern = nil, &block)
+  count = 0
+  matching_queries = []
+
+  counter_fn = ->(name, start, finish, id, payload) do
+    sql = payload[:sql]
+    if match_pattern.nil? || (match_pattern.is_a?(Regexp) ? sql.match?(match_pattern) : sql.include?(match_pattern))
+      count += 1
+      matching_queries << sql
+    end
+  end
+
+  ActiveSupport::Notifications.subscribed(counter_fn, "sql.active_record") do
+    yield
+  end
+
+  [count, matching_queries]
+end
+
 ModelIndexer.run
 ActiveRecord::Base.connection.execute("DROP MATERIALIZED VIEW IF EXISTS b.team_ranking")
 MaterializedViewsJob.perform_now(InModel::DEFAULT_MODEL)

@@ -49,4 +49,12 @@ class TeamReleasePageTest < ActionDispatch::IntegrationTest
 
     assert_selector "table tbody tr", count: 4
   end
+
+  test "does not make database queries for models" do
+    count, matching_queries = count_queries("FROM \"models\"") do
+      visit "/"
+    end
+
+    assert_equal 0, count, "Found #{count} model queries: #{matching_queries.join("\n")}"
+  end
 end
