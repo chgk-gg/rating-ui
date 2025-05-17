@@ -8,6 +8,8 @@ module API
       def release
         return render_error_json(error: MISSING_MODEL_ERROR) if current_model.nil?
 
+        Rails.logger.info "Fetching players for release #{release_id}, page size #{page_size}, page #{page}"
+
         @players = fetch_players
 
         Places.add_top_and_bottom_places!(@players)
