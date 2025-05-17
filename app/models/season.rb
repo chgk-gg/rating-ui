@@ -4,7 +4,9 @@ class Season < ApplicationRecord
   FIRST_MAII_SEASON_START = Date.new(2021, 9, 1)
 
   def self.current_season
-    Season.where('current_date between "start" and "end"').first
+    Rails.cache.fetch("current_season", expires_in: 12.hours) do
+      Season.find_by('current_date between "start" and "end"')
+    end
   end
 
   def title
