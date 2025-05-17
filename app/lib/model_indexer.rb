@@ -12,6 +12,7 @@ class ModelIndexer
     end
 
     Model.upsert_all(models, unique_by: :name)
+    InModel.reload_model_cache!
   end
 
   def self.schemas
