@@ -1,9 +1,9 @@
 production:
-  # Every two hours we load data for the most recent tournaments
+  # Every eight hours we load data for the most recent tournaments
   recent_tournament_results:
     class: RecentTournamentResultsJob
     args: [ 28 ]
-    schedule: 35 */2 * * *
+    schedule: 35 */8 * * *
 
   # Many tournaments open their results at 20:59 UTC
   just_opened_tournament_results:
@@ -11,16 +11,16 @@ production:
     args: [ 3 ]
     schedule: 0 21 * * *
 
-  # Once a day we update results and rosters for all tournaments in the past year
+  # Once a week we update results and rosters for all tournaments in the past year
   last_year_tournament_results:
     class: RecentTournamentResultsJob
     args: [ 365 ]
-    schedule: 15 2 * * *
+    schedule: every Wednesday at 14:15
 
   # Once a week we update results and rosters for all rating tournaments since September 2021
   all_rating_tournament_results:
     class: AllRatingTournamentResultsJob
-    schedule: every Wednesday at 4:15
+    schedule: every Thursday at 14:15
 
   # Once a day we refresh metadata for recently updated tournaments
   recent_tournament_metadata:
