@@ -2,7 +2,9 @@
 
 class MaterializedViewsController < ApplicationController
   def recreate_views
-    MaterializedViewsJob.perform_later(params_model)
+    ActiveRecord::Base.connected_to(role: :writing) do
+      MaterializedViewsJob.perform_later(params_model)
+    end
     redirect_to :root
   end
 

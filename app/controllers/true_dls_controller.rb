@@ -2,7 +2,9 @@
 
 class TrueDlsController < ApplicationController
   def recalculate
-    TrueDLForAllTournamentsJob.perform_later(params_model)
+    ActiveRecord::Base.connected_to(role: :writing) do
+      TrueDLForAllTournamentsJob.perform_later(params_model)
+    end
     redirect_to :root
   end
 

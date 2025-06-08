@@ -42,5 +42,7 @@ module RatingUi
     config.active_job.queue_adapter = :solid_queue
     config.mission_control.jobs.base_controller_class = "MissionControlController"
     config.mission_control.jobs.http_basic_auth_enabled = false
+
+    config.active_record.multiple_databases = true
   end
 end

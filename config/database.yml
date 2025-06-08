@@ -7,17 +7,42 @@ default: &default
     idle_in_transaction_session_timeout: <%= ENV.fetch("DATABASE_IDLE_IN_TRANSACTION_SESSION_TIMEOUT", 300_000)%>
     lock_timeout: <%= ENV.fetch("DATABASE_LOCK_TIMEOUT", 5000)%>
 
+replica_default: &replica_default
+  adapter: postgresql
+  url: <%= ENV.fetch('REPLICA_DATABASE_URL', ENV.fetch('DATABASE_URL', "postgres://postgres:password@localhost:5432/postgres")) %>
+  pool: 5
+  replica: true
+  variables:
+    statement_timeout: <%= ENV.fetch("DATABASE_STATEMENT_TIMEOUT", 5000)%>
+    idle_in_transaction_session_timeout: <%= ENV.fetch("DATABASE_IDLE_IN_TRANSACTION_SESSION_TIMEOUT", 300_000)%>
+    lock_timeout: <%= ENV.fetch("DATABASE_LOCK_TIMEOUT", 5000)%>
+
 production:
-  <<: *default
-  connect_timeout: 5
-  checkout_timeout: 5
+  primary:
+    <<: *default
+    connect_timeout: 5
+    checkout_timeout: 5
+  replica:
+    <<: *replica_default
+    connect_timeout: 5
+    checkout_timeout: 5
 
 staging:
-  <<: *default
+  primary:
+    <<: *default
+  replica:
+    <<: *replica_default
 
 test:
-  <<: *default
-  url: <%= ENV['DATABASE_URL'] || 'postgres://postgres:postgres@localhost:5432/test_db' %>
+  primary:
+    <<: *default
+    url: <%= ENV['DATABASE_URL'] || 'postgres://postgres:postgres@localhost:5432/test_db' %>
+  replica:
+    <<: *replica_default
+    url: <%= ENV['REPLICA_DATABASE_URL'] || ENV['DATABASE_URL'] || 'postgres://postgres:postgres@localhost:5432/test_db' %>
 
 development:
-  <<: *default
+  primary:
+    <<: *default
+  replica:
+    <<: *replica_default
