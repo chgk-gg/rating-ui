@@ -1,6 +1,5 @@
 default: &default
   adapter: postgresql
-  url: <%= ENV.fetch('DATABASE_URL', "postgres://postgres:password@localhost:5432/postgres") %>
   pool: 5
   variables:
     statement_timeout: <%= ENV.fetch("DATABASE_STATEMENT_TIMEOUT", 5000)%>
@@ -8,16 +7,41 @@ default: &default
     lock_timeout: <%= ENV.fetch("DATABASE_LOCK_TIMEOUT", 5000)%>
 
 production:
-  <<: *default
-  connect_timeout: 5
-  checkout_timeout: 5
+  primary:
+    <<: *default
+    url: <%= ENV.fetch('DATABASE_URL', "postgres://postgres:password@localhost:5432/postgres") %>
+    connect_timeout: 5
+    checkout_timeout: 5
+  replica:
+    <<: *default
+    url: <%= ENV.fetch('REPLICA_DATABASE_URL', ENV.fetch('DATABASE_URL', "postgres://postgres:password@localhost:5432/postgres")) %>
+    connect_timeout: 5
+    checkout_timeout: 5
+    replica: true
 
 staging:
-  <<: *default
+  primary:
+    <<: *default
+    url: <%= ENV.fetch('DATABASE_URL', "postgres://postgres:password@localhost:5432/postgres") %>
+  replica:
+    <<: *default
+    url: <%= ENV.fetch('REPLICA_DATABASE_URL', ENV.fetch('DATABASE_URL', "postgres://postgres:password@localhost:5432/postgres")) %>
+    replica: true
 
 test:
-  <<: *default
-  url: <%= ENV['DATABASE_URL'] || 'postgres://postgres:postgres@localhost:5432/test_db' %>
+  primary:
+    <<: *default
+    url: <%= ENV['DATABASE_URL'] || 'postgres://postgres:postgres@localhost:5432/test_db' %>
+  replica:
+    <<: *default
+    url: <%= ENV['DATABASE_URL'] || 'postgres://postgres:postgres@localhost:5432/test_db' %>
+    replica: true
 
 development:
-  <<: *default
+  primary:
+    <<: *default
+    url: <%= ENV.fetch('DATABASE_URL', "postgres://postgres:password@localhost:5432/postgres") %>
+  replica:
+    <<: *default
+    url: <%= ENV.fetch('REPLICA_DATABASE_URL', ENV.fetch('DATABASE_URL', "postgres://postgres:password@localhost:5432/postgres")) %>
+    replica: true
