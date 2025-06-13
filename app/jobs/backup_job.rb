@@ -24,6 +24,6 @@ class BackupJob < ApplicationJob
   end
 
   def connection_string
-    Rails.configuration.database_configuration[Rails.env]["url"]
+    Rails.configuration.database_configuration.dig(Rails.env, "primary", "url")
   end
 end
