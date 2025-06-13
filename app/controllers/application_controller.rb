@@ -6,6 +6,9 @@ class ApplicationController < ActionController::Base
     rescue_from ActiveRecord::StatementInvalid, with: :show_model_errors
   end
 
+  # Use replica database for all web requests since controllers don't write data directly
+  around_action :use_replica_database
+
   before_action :validate_model_name
 
   protected
@@ -19,6 +22,10 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def use_replica_database(&block)
+    ActiveRecord::Base.connected_to(role: :reading, &block)
+  end
 
   def validate_model_name
     return if params[:model].blank? || params[:model] =~ /\A[a-zA-Z_]+\z/
