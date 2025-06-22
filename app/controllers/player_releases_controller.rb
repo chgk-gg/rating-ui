@@ -23,7 +23,7 @@ class PlayerReleasesController < ApplicationController
   end
 
   def to
-    (clean_params[:to] || 250).to_i
+    (clean_params[:to] || 100).to_i
   end
 
   def first_name
