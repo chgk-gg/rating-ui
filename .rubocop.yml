@@ -1,5 +1,7 @@
 require:
   - standard
+
+plugins:
   - rubocop-rails
 
 inherit_gem:
