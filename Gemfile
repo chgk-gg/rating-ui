@@ -6,7 +6,7 @@ gem "aws-sdk-s3"
 gem "bootsnap", ">= 1.4.4", require: false
 gem "cssbundling-rails", "~> 1.4"
 gem "hiredis"
-gem "honeybadger", "~> 5.28"
+gem "honeybadger", "~> 5.29"
 gem "httparty"
 gem "jsbundling-rails", "~> 1.3"
 gem "lograge"
