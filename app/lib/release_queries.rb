@@ -14,6 +14,7 @@ module ReleaseQueries
   Release = Struct.new(:id, :date, :q, keyword_init: true)
 
   def teams_for_release(release_id:, from:, to:, team_name: nil, city: nil)
+    filtered = team_name.present? || city.present?
     sql = <<~SQL
       with ordered as (
           select id, row_number() over (order by date)
@@ -40,7 +41,7 @@ module ReleaseQueries
       left join public.teams t on r.team_id = t.id
       left join public.towns town on town.id = t.town_id
       left join ranked_prev_release as prev using (team_id)
-      where t.title ilike $4 and town.title ilike $5
+      #{"where t.title ilike $4 and town.title ilike $5" if filtered}
       order by r.place
       limit $2
       offset $3;
@@ -48,9 +49,9 @@ module ReleaseQueries
 
     limit = to - from + 1
     offset = from - 1
-    exec_query(query: sql,
-      params: [release_id, limit, offset, "%#{team_name}%", "%#{city}%"],
-      result_class: ReleaseTeam, cache: true)
+    params = [release_id, limit, offset]
+    params.append("%#{team_name}%", "%#{city}%") if filtered
+    exec_query(query: sql, params:, result_class: ReleaseTeam, cache: !filtered)
   end
 
   def teams_for_release_api(release_id:, limit:, offset:)
