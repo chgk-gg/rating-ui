@@ -35,11 +35,7 @@ class PlayerReleasesController < ApplicationController
   end
 
   def all_players_count
-    if @filtered
-      current_model.count_all_players_in_release_with_filters(release_id: @release_id, first_name:, last_name:)
-    else
-      current_model.count_all_players_in_release(release_id: @release_id)
-    end
+    current_model.count_all_players_in_release(release_id: @release_id, first_name:, last_name:)
   end
 
   def list_releases_for_dropdown

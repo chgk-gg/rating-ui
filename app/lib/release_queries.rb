@@ -14,6 +14,7 @@ module ReleaseQueries
   Release = Struct.new(:id, :date, :q, keyword_init: true)
 
   def teams_for_release(release_id:, from:, to:, team_name: nil, city: nil)
+    filtered = team_name.present? || city.present?
     sql = <<~SQL
       with ordered as (
           select id, row_number() over (order by date)
@@ -40,7 +41,7 @@ module ReleaseQueries
       left join public.teams t on r.team_id = t.id
       left join public.towns town on town.id = t.town_id
       left join ranked_prev_release as prev using (team_id)
-      where t.title ilike $4 and town.title ilike $5
+      #{"where t.title ilike $4 and town.title ilike $5" if filtered}
       order by r.place
       limit $2
       offset $3;
@@ -48,9 +49,9 @@ module ReleaseQueries
 
     limit = to - from + 1
     offset = from - 1
-    exec_query(query: sql,
-      params: [release_id, limit, offset, "%#{team_name}%", "%#{city}%"],
-      result_class: ReleaseTeam, cache: true)
+    params = [release_id, limit, offset]
+    params.append("%#{team_name}%", "%#{city}%") if filtered
+    exec_query(query: sql, params:, result_class: ReleaseTeam, cache: !filtered)
   end
 
   def teams_for_release_api(release_id:, limit:, offset:)
@@ -158,36 +159,26 @@ module ReleaseQueries
     exec_query_for_single_value(query: sql)
   end
 
-  def count_all_teams_in_release(release_id:)
-    sql = <<~SQL
+  def count_all_teams_in_release(release_id:, team_name: nil, city: nil)
+    filtered = team_name.present? || city.present?
+    filter_clause = "and t.title ilike $2 and town.title ilike $3"
+    query = <<~SQL
       select count(*)
       from #{name}.team_rating tr
       left join public.teams t on t.id = tr.team_id
       left join public.towns town on town.id = t.town_id
       where tr.release_id = $1
+      #{filter_clause if filtered}
     SQL
 
-    exec_query_for_single_value(query: sql, params: [release_id], default_value: 0, cache: true)
-  end
-
-  def count_all_teams_in_release_with_filters(release_id:, team_name: nil, city: nil)
-    sql = <<~SQL
-      select count(*)
-      from #{name}.team_rating tr
-      left join public.teams t on t.id = tr.team_id
-      left join public.towns town on town.id = t.town_id
-      where tr.release_id = $1
-          and t.title ilike $2
-          and town.title ilike $3
-    SQL
-
-    exec_query_for_single_value(query: sql,
-      params: [release_id, "%#{team_name}%", "%#{city}%"],
-      default_value: 0,
-      cache: true)
+    params = [release_id]
+    params.append("%#{team_name}%", "%#{city}%") if filtered
+    exec_query_for_single_value(query:, params:, default_value: 0, cache: !filtered)
   end
 
   def players_for_release(release_id:, from:, to:, first_name: nil, last_name: nil)
+    filtered_by_names = first_name.present? || last_name.present?
+    names_where_clause = "where p.first_name ilike $4 and p.last_name ilike $5"
     sql = <<~SQL
       with ranked as (
         select rank() over (order by rating desc) as place, player_id, rating, rating_change
@@ -198,7 +189,7 @@ module ReleaseQueries
       select r.*, p.first_name || '&nbsp;' || last_name as name
       from ranked r
       left join public.players p on p.id = r.player_id
-      where p.first_name ilike $4 and p.last_name ilike $5
+      #{names_where_clause if filtered_by_names}
       order by r.place
       limit $2
       offset $3;
@@ -206,9 +197,10 @@ module ReleaseQueries
 
     limit = to - from + 1
     offset = from - 1
-    exec_query(query: sql,
-      params: [release_id, limit, offset, "%#{first_name}%", "%#{last_name}%"],
-      result_class: ReleasePlayer)
+    params = [release_id, limit, offset]
+    params.append("%#{first_name}%", "%#{last_name}%") if filtered_by_names
+
+    exec_query(query: sql, params:, result_class: ReleasePlayer, cache: !filtered_by_names)
   end
 
   def player_ratings_components_for_release(release_id:, player_ids:)
@@ -284,30 +276,20 @@ module ReleaseQueries
     exec_query_for_hash_array(query: sql, params: [release_id, limit, offset])
   end
 
-  def count_all_players_in_release(release_id:)
-    sql = <<~SQL
+  def count_all_players_in_release(release_id:, first_name: nil, last_name: nil)
+    filtered_by_names = first_name.present? || last_name.present?
+    filter_clause = "and p.first_name ilike $2 and p.last_name ilike $3"
+    query = <<~SQL
       select count(*)
       from #{name}.player_rating pr
       left join public.players p on p.id = pr.player_id
       where release_id = $1
+      #{filter_clause if filtered_by_names}
     SQL
 
-    exec_query_for_single_value(query: sql, params: [release_id], default_value: 0, cache: true)
-  end
-
-  def count_all_players_in_release_with_filters(release_id:, first_name:, last_name:)
-    sql = <<~SQL
-      select count(*)
-      from #{name}.player_rating pr
-      left join public.players p on p.id = pr.player_id
-      where release_id = $1
-        and p.first_name ilike $2
-        and p.last_name ilike $3
-    SQL
-
-    exec_query_for_single_value(query: sql,
-      params: [release_id, "%#{first_name}%", "%#{last_name}%"],
-      default_value: 0)
+    params = [release_id]
+    params.append("%#{first_name}%", "%#{last_name}%") if filtered_by_names
+    exec_query_for_single_value(query:, params:, default_value: 0, cache: !filtered_by_names)
   end
 
   def release_for_date(date)

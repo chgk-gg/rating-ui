@@ -45,11 +45,7 @@ class ReleasesController < ApplicationController
   end
 
   def all_teams_count
-    if @filtered
-      current_model.count_all_teams_in_release_with_filters(release_id: id, team_name: team, city:)
-    else
-      current_model.count_all_teams_in_release(release_id: id)
-    end
+    current_model.count_all_teams_in_release(release_id: id, team_name: team, city:)
   end
 
   def list_releases_for_dropdown
