@@ -188,6 +188,8 @@ module ReleaseQueries
   end
 
   def players_for_release(release_id:, from:, to:, first_name: nil, last_name: nil)
+    filtered_by_names = first_name.present? || last_name.present?
+    names_where_clause = "where p.first_name ilike $4 and p.last_name ilike $5"
     sql = <<~SQL
       with ranked as (
         select rank() over (order by rating desc) as place, player_id, rating, rating_change
@@ -198,7 +200,7 @@ module ReleaseQueries
       select r.*, p.first_name || '&nbsp;' || last_name as name
       from ranked r
       left join public.players p on p.id = r.player_id
-      where p.first_name ilike $4 and p.last_name ilike $5
+      #{names_where_clause if filtered_by_names}
       order by r.place
       limit $2
       offset $3;
@@ -206,9 +208,10 @@ module ReleaseQueries
 
     limit = to - from + 1
     offset = from - 1
-    exec_query(query: sql,
-      params: [release_id, limit, offset, "%#{first_name}%", "%#{last_name}%"],
-      result_class: ReleasePlayer)
+    params = [release_id, limit, offset]
+    params.append("%#{first_name}%", "%#{last_name}%") if filtered_by_names
+
+    exec_query(query: sql, params:, result_class: ReleasePlayer, cache: !filtered_by_names)
   end
 
   def player_ratings_components_for_release(release_id:, player_ids:)
