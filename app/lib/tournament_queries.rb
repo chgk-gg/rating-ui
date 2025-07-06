@@ -84,7 +84,7 @@ module TournamentQueries
     exec_query_for_hash(query: sql, params: [tournament_id], group_by: "team_id")
   end
 
-  def tournaments_list
+  def tournaments_list(from:, to:)
     sql = <<~SQL
       with winners as (
           select tr.tournament_id, max(rating) as max_rating
@@ -99,8 +99,23 @@ module TournamentQueries
       where t.maii_rating = true
         and t.end_datetime <= now() + interval '1 week'
       order by date desc
+      limit $1
+      offset $2;
     SQL
 
-    exec_query(query: sql, result_class: TournamentListDetails)
+    limit = to - from + 1
+    offset = from - 1
+    exec_query(query: sql, params: [limit, offset], result_class: TournamentListDetails, cache: true)
+  end
+
+  def count_all_tournaments
+    sql = <<~SQL
+      select count(*)
+      from public.tournaments
+      where maii_rating = true
+        and end_datetime <= now() + interval '1 week';
+    SQL
+
+    exec_query_for_single_value(query: sql, cache: true)
   end
 end
