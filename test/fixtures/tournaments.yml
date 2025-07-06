@@ -29,3 +29,11 @@ tournament_4:
   title: "Cesky Krumlov Championship"
   start_datetime: 2024-07-24 10:00:00
   end_datetime: 2024-07-24 15:00:00
+
+tournament_5:
+  id: 5
+  maii_rating: true
+  type: "Обычный"
+  title: "Cesky Krumlov Championship 2025"
+  start_datetime: 2025-05-24 10:00:00
+  end_datetime: 2025-05-24 15:00:00

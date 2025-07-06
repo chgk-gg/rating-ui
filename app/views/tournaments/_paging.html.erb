@@ -1,0 +1,19 @@
+<%= tournaments_link_to_previous_page(current_top: @paging.from, current_bottom: @paging.to) %>
+
+<% if @paging.last_page > 5 %>
+  <% (1..5).each do |page| %>
+    <%= tournaments_link_to_page(page: page, tournaments_per_page: @paging.per_page) %>
+  <% end %>
+
+  <% if @paging.last_page > 6 %>
+  ...
+  <% end %>
+
+  <%= tournaments_link_to_page(page: @paging.last_page, tournaments_per_page: @paging.per_page) %>
+<% else %>
+  <% (1..@paging.last_page).each do |page| %>
+    <%= tournaments_link_to_page(page: page, tournaments_per_page: @paging.per_page) %>
+  <% end %>
+<% end %>
+
+<%= tournaments_link_to_next_page(current_top: @paging.from, current_bottom: @paging.to) %>

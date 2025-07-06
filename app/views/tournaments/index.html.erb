@@ -1,5 +1,13 @@
 <% @title="Рейтинг" %>
-<h1 class="text-center py-4 text-xl">Турниры</h1>
+<div class="flex">
+  <div class="flex-col mx-auto my-1">
+    <h1 class="text-center py-4 text-xl">Турниры</h1>
+
+    <% if @paging.display? %>
+      <div class="flex-row my-2">
+        <%= render "paging" %>
+      </div>
+    <% end %>
 
 <table class="rating-table table-fixed">
   <thead>
@@ -27,3 +35,10 @@
   </tbody>
 </table>
 
+    <% if @paging.display? %>
+      <div class="flex-row my-2">
+        <%= render "paging" %>
+      </div>
+    <% end %>
+  </div>
+</div>
