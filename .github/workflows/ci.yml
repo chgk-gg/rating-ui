@@ -5,17 +5,6 @@ on: push
 jobs:
   test:
     runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: maiili/rating-db-schema:latest
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: test_db
-        ports:
-          - 5432:5432
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-
     steps:
       - uses: actions/checkout@v4
       - name: Install PostgreSQL client
@@ -32,7 +21,6 @@ jobs:
       - name: Run tests
         env:
           RAILS_ENV: test
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432/test_db
           NEWRELIC_AGENT_ENABLED: false
         run: bundle exec rake test
 
