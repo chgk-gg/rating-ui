@@ -3,6 +3,15 @@
 ENV["RAILS_ENV"] = "test"
 
 require "minitest"
+require "testcontainers/postgres"
+
+postgres_container = Testcontainers::PostgresContainer.new("maiili/rating-db-schema:latest",
+  username: "postgres",
+  password: "postgres",
+  database: "postgres")
+postgres_container.start
+ENV["DATABASE_URL"] = postgres_container.database_url
+
 require_relative "../config/environment"
 require "rails/test_help"
 require "capybara/rails"
