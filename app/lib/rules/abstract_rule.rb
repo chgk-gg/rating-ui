@@ -11,6 +11,8 @@ module Rules
     end
 
     def self.message
+      return nil if offenders.blank?
+
       "#{description}:\n#{offenders}"
     end
   end
