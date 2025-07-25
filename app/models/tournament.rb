@@ -4,6 +4,10 @@ class Tournament < ApplicationRecord
 
   has_many :tournament_results, dependent: :destroy
   has_many :tournament_rosters, dependent: :destroy
+  has_many :tournament_appeal_jury, dependent: :destroy
+  has_many :tournament_game_jury, dependent: :destroy
+  has_many :tournament_organizers, dependent: :destroy
+  has_many :tournament_editors, dependent: :destroy
 
   def self.pre_maii_tournaments_for_team(team_id)
     Tournament.joins(:tournament_results)
