@@ -3,6 +3,20 @@
 ENV["RAILS_ENV"] = "test"
 
 require "minitest"
+require "testcontainers/postgres"
+
+postgres_container = Testcontainers::PostgresContainer.new("maiili/rating-db-schema:latest",
+  username: "postgres",
+  password: "postgres",
+  database: "postgres")
+postgres_container.start
+ENV["DATABASE_URL"] = postgres_container.database_url
+
+Minitest.after_run do
+  postgres_container.stop
+  postgres_container.delete
+end
+
 require_relative "../config/environment"
 require "rails/test_help"
 require "capybara/rails"
@@ -29,6 +43,11 @@ VCR.configure do |config|
   config.hook_into :webmock
   config.ignore_localhost = true
   config.allow_http_connections_when_no_cassette = false
+
+  # Allow testcontainers to communicate with Docker
+  config.ignore_request do |request|
+    request.uri.match?(%r{^http://unix///containers/})
+  end
 end
 
 def count_queries(match_pattern = nil, &block)
