@@ -1,0 +1,158 @@
+# frozen_string_literal: true
+
+require "test_helper"
+require "minitest/autorun"
+
+module Rules
+  class AppealJuryRuleTest < ActiveSupport::TestCase
+    test "offenders returns empty string when no tournaments match criteria" do
+      result = AppealJuryRule.offenders
+      assert_equal "", result
+    end
+
+    test "offenders includes tournament with no appeal jury members" do
+      tournament = Tournament.create!(
+        id: 1,
+        title: "Test Tournament",
+        start_datetime: Time.zone.today + 1.day,
+        maii_rating: true
+      )
+
+      result = AppealJuryRule.offenders
+      expected = "<a href='https://rating.chgk.info/tournament/#{tournament.id}'>#{tournament.title}</a>"
+      assert_equal expected, result
+    end
+
+    test "offenders includes tournament with less than 3 appeal jury members" do
+      tournament = Tournament.create!(
+        id: 2,
+        title: "Tournament with 2 jury",
+        start_datetime: Time.zone.today + 2.days,
+        maii_rating: true
+      )
+
+      player1 = Player.create!(id: 1, first_name: "John", last_name: "Doe")
+      player2 = Player.create!(id: 2, first_name: "Jane", last_name: "Smith")
+
+      TournamentAppealJury.create!(tournament: tournament, player: player1)
+      TournamentAppealJury.create!(tournament: tournament, player: player2)
+
+      result = AppealJuryRule.offenders
+      expected = "<a href='https://rating.chgk.info/tournament/#{tournament.id}'>#{tournament.title}</a>"
+      assert_equal expected, result
+    end
+
+    test "offenders excludes tournament with 3 or more appeal jury members" do
+      tournament = Tournament.create!(
+        id: 3,
+        title: "Tournament with 3 jury",
+        start_datetime: Time.zone.today + 1.day,
+        maii_rating: true
+      )
+
+      player1 = Player.create!(id: 3, first_name: "John", last_name: "Doe")
+      player2 = Player.create!(id: 4, first_name: "Jane", last_name: "Smith")
+      player3 = Player.create!(id: 5, first_name: "Bob", last_name: "Johnson")
+
+      TournamentAppealJury.create!(tournament: tournament, player: player1)
+      TournamentAppealJury.create!(tournament: tournament, player: player2)
+      TournamentAppealJury.create!(tournament: tournament, player: player3)
+
+      result = AppealJuryRule.offenders
+      assert_equal "", result
+    end
+
+    test "offenders only includes tournaments within date range" do
+      Tournament.create!(
+        id: 4,
+        title: "Old Tournament",
+        start_datetime: Time.zone.today - 1.day,
+        maii_rating: true
+      )
+
+      Tournament.create!(
+        id: 5,
+        title: "Future Tournament",
+        start_datetime: Time.zone.today + 4.days,
+        maii_rating: true
+      )
+
+      valid_tournament = Tournament.create!(
+        id: 6,
+        title: "Valid Tournament",
+        start_datetime: Time.zone.today + 2.days,
+        maii_rating: true
+      )
+
+      result = AppealJuryRule.offenders
+      expected = "<a href='https://rating.chgk.info/tournament/#{valid_tournament.id}'>#{valid_tournament.title}</a>"
+      assert_equal expected, result
+    end
+
+    test "offenders only includes tournaments with maii_rating true" do
+      Tournament.create!(
+        id: 7,
+        title: "Non-MAII Tournament",
+        start_datetime: Time.zone.today + 1.day,
+        maii_rating: false
+      )
+
+      maii_tournament = Tournament.create!(
+        id: 8,
+        title: "MAII Tournament",
+        start_datetime: Time.zone.today + 1.day,
+        maii_rating: true
+      )
+
+      result = AppealJuryRule.offenders
+      expected = "<a href='https://rating.chgk.info/tournament/#{maii_tournament.id}'>#{maii_tournament.title}</a>"
+      assert_equal expected, result
+    end
+
+    test "offenders returns multiple tournaments joined by newlines" do
+      tournament1 = Tournament.create!(
+        id: 9,
+        title: "First Tournament",
+        start_datetime: Time.zone.today + 1.day,
+        maii_rating: true
+      )
+
+      tournament2 = Tournament.create!(
+        id: 10,
+        title: "Second Tournament",
+        start_datetime: Time.zone.today + 2.days,
+        maii_rating: true
+      )
+
+      result = AppealJuryRule.offenders
+      lines = result.split("\n")
+
+      assert_equal 2, lines.length
+      assert_includes lines, "<a href='https://rating.chgk.info/tournament/#{tournament1.id}'>#{tournament1.title}</a>"
+      assert_includes lines, "<a href='https://rating.chgk.info/tournament/#{tournament2.id}'>#{tournament2.title}</a>"
+    end
+
+    test "message combines description and offenders" do
+      tournament = Tournament.create!(
+        id: 11,
+        title: "Message Test Tournament",
+        start_datetime: Time.zone.today + 1.day,
+        maii_rating: true
+      )
+
+      expected_description = "Турниры, в которых меньше трёх человек в апелляционном жюри"
+      expected_offenders = "<a href='https://rating.chgk.info/tournament/#{tournament.id}'>#{tournament.title}</a>"
+      expected_message = "#{expected_description}:\n#{expected_offenders}"
+
+      assert_equal expected_message, AppealJuryRule.message
+    end
+
+    private
+
+    def setup
+      Tournament.destroy_all
+      TournamentAppealJury.destroy_all
+      Player.destroy_all
+    end
+  end
+end
