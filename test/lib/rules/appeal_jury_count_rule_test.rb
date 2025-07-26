@@ -4,9 +4,9 @@ require "test_helper"
 require "minitest/autorun"
 
 module Rules
-  class AppealJuryRuleTest < ActiveSupport::TestCase
+  class AppealJuryCountRuleTest < ActiveSupport::TestCase
     test "offenders returns empty string when no tournaments match criteria" do
-      result = AppealJuryRule.offenders
+      result = AppealJuryCountRule.offenders
       assert_equal "", result
     end
 
@@ -18,7 +18,7 @@ module Rules
         maii_rating: true
       )
 
-      result = AppealJuryRule.offenders
+      result = AppealJuryCountRule.offenders
       expected = "<a href='https://rating.chgk.info/tournament/#{tournament.id}'>#{tournament.title}</a>"
       assert_equal expected, result
     end
@@ -37,7 +37,7 @@ module Rules
       TournamentAppealJury.create!(tournament: tournament, player: player1)
       TournamentAppealJury.create!(tournament: tournament, player: player2)
 
-      result = AppealJuryRule.offenders
+      result = AppealJuryCountRule.offenders
       expected = "<a href='https://rating.chgk.info/tournament/#{tournament.id}'>#{tournament.title}</a>"
       assert_equal expected, result
     end
@@ -58,7 +58,7 @@ module Rules
       TournamentAppealJury.create!(tournament: tournament, player: player2)
       TournamentAppealJury.create!(tournament: tournament, player: player3)
 
-      result = AppealJuryRule.offenders
+      result = AppealJuryCountRule.offenders
       assert_equal "", result
     end
 
@@ -84,7 +84,7 @@ module Rules
         maii_rating: true
       )
 
-      result = AppealJuryRule.offenders
+      result = AppealJuryCountRule.offenders
       expected = "<a href='https://rating.chgk.info/tournament/#{valid_tournament.id}'>#{valid_tournament.title}</a>"
       assert_equal expected, result
     end
@@ -104,7 +104,7 @@ module Rules
         maii_rating: true
       )
 
-      result = AppealJuryRule.offenders
+      result = AppealJuryCountRule.offenders
       expected = "<a href='https://rating.chgk.info/tournament/#{maii_tournament.id}'>#{maii_tournament.title}</a>"
       assert_equal expected, result
     end
@@ -124,7 +124,7 @@ module Rules
         maii_rating: true
       )
 
-      result = AppealJuryRule.offenders
+      result = AppealJuryCountRule.offenders
       lines = result.split("\n")
 
       assert_equal 2, lines.length
@@ -144,7 +144,7 @@ module Rules
       expected_offenders = "<a href='https://rating.chgk.info/tournament/#{tournament.id}'>#{tournament.title}</a>"
       expected_message = "#{expected_description}:\n#{expected_offenders}"
 
-      assert_equal expected_message, AppealJuryRule.message
+      assert_equal expected_message, AppealJuryCountRule.message
     end
 
     private
