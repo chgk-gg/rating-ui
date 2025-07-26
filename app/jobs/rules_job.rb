@@ -1,7 +1,7 @@
 class RulesJob < ApplicationJob
   def perform
-    rules = [Rules::AppealJuryCountRule]
-    messages = rules.map do |rule_class, hash|
+    rules = [Rules::AppealJuryCountRule, Rules::EditorsPresentRule]
+    messages = rules.map do |rule_class|
       message = rule_class.message
       if message.blank?
         Rails.logger.info "No offenders found for #{rule_class}."
