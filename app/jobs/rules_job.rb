@@ -1,6 +1,6 @@
 class RulesJob < ApplicationJob
   def perform
-    rules = [Rules::AppealJuryRule]
+    rules = [Rules::AppealJuryCountRule]
     messages = rules.map do |rule_class, hash|
       message = rule_class.message
       if message.blank?

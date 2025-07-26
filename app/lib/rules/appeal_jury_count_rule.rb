@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Rules
-  class AppealJuryRule < AbstractRule
+  class AppealJuryCountRule < AbstractRule
     def self.description
       "Турниры, в которых меньше трёх человек в апелляционном жюри"
     end
