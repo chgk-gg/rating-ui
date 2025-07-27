@@ -34,6 +34,12 @@ production:
     args: [ "all" ]
     schedule: every Wednesday at 2:15
 
+  # Once a day we refresh metadata for tournaments starting soon
+  starting_soon_tournaments_metadata:
+    class: TournamentsMetadataJob
+    args: [ "starting_soon" ]
+    schedule: every day at 8:00
+
   # Names and towns for teams
   teams:
     class: TeamsJob
