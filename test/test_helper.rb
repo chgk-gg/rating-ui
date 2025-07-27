@@ -21,6 +21,7 @@ require_relative "../config/environment"
 require "rails/test_help"
 require "capybara/rails"
 require "capybara/minitest"
+require "mocha/minitest"
 require_relative "factories"
 
 Rails.root.glob("test/jobs/**/*_test.rb").each { require it }
@@ -48,6 +49,11 @@ VCR.configure do |config|
   config.ignore_request do |request|
     request.uri.match?(%r{^http://unix///containers/})
   end
+end
+
+Mocha.configure do |c|
+  c.stubbing_method_unnecessarily = :prevent
+  c.stubbing_non_existent_method = :prevent
 end
 
 def count_queries(match_pattern = nil, &block)

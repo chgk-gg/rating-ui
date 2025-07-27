@@ -42,6 +42,7 @@ group :test do
   gem "brakeman"
   gem "capybara"
   gem "minitest"
+  gem "mocha"
   gem "testcontainers-postgres"
   gem "vcr"
   gem "webmock"
