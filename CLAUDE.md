@@ -13,10 +13,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `bun run build:css` - Build CSS assets
 
 ### Testing and Quality
-- `bundle exec minitest` - Run all tests
-- `rails test test/system/player_page_test.rb` - Run a specific test file
+- `bundle exec rake test` - Run all tests
+- `bin/rails test test/system/player_page_test.rb` - Run a specific test file
 - `bundle exec rubocop` - Run linting
-- `bundle exec standard` - Run Standard Ruby style checker
 - `bundle exec brakeman` - Run security analysis
 
 ### Database Development
