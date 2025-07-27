@@ -1,5 +1,4 @@
 require "test_helper"
-require "minitest/autorun"
 
 class TeamReleaseSearchTest < ActionDispatch::IntegrationTest
   fixtures :seasons, :teams, :players, :towns, :base_rosters

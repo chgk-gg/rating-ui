@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "test_helper"
-require "minitest/autorun"
 
 module Rules
   class AppealJuryCountRuleTest < ActiveSupport::TestCase

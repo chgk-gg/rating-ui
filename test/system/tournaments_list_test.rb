@@ -1,5 +1,4 @@
 require "test_helper"
-require "minitest/autorun"
 
 class TournamentsListTest < ActionDispatch::IntegrationTest
   include ActiveRecord::TestFixtures
