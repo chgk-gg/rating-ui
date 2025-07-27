@@ -1,7 +1,8 @@
 class RulesJob < ApplicationJob
   TELEGRAM_MAX_MESSAGE_LENGTH = 4094 # 4096 - 2 for newlines
 
-  def initialize
+  def initialize(*args)
+    super
     @accumulated_message = ""
   end
 
