@@ -2,9 +2,11 @@ require "test_helper"
 require "minitest/autorun"
 
 class TeamReleasePageTest < ActionDispatch::IntegrationTest
+  fixtures :teams, :towns
+
   def assert_row_has_correct_team(row, expected_place, expected_team, expected_city, expected_rating)
     place, team, city, rating = row
-    assert_equal place, expected_place, wait: 5
+    assert_equal place, expected_place
     assert_equal team, expected_team
     assert_equal city, expected_city
     assert_equal rating, expected_rating
@@ -33,21 +35,21 @@ class TeamReleasePageTest < ActionDispatch::IntegrationTest
   test "table for the latest release has correct data" do
     visit "/"
 
+    assert_selector "table tbody tr", count: 4
+
     latest_release_teams.each do |place, team|
       assert_row_has_correct_team(all("table tr:nth-child(#{place}) td").map(&:text), *team)
     end
-
-    assert_selector "table tbody tr", count: 4
   end
 
   test "release can be opened by its id" do
     visit "/b/2"
 
+    assert_selector "table tbody tr", count: 4
+
     latest_release_teams.each do |place, team|
       assert_row_has_correct_team(all("table tr:nth-child(#{place}) td").map(&:text), *team)
     end
-
-    assert_selector "table tbody tr", count: 4
   end
 
   test "does not make database queries for models" do
