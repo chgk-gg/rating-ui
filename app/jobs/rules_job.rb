@@ -26,7 +26,7 @@ class RulesJob < ApplicationJob
   end
 
   def rules
-    [Rules::AppealJuryCountRule, Rules::EditorsPresentRule]
+    [Rules::AppealJuryCountRule, Rules::EditorsPresentRule, Rules::AppealJuryAreNotEditorsRule]
   end
 
   def send_accumulated_message
