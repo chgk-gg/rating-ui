@@ -395,26 +395,26 @@ PLATFORMS
 DEPENDENCIES
   aws-sdk-s3
   benchmark
-  bootsnap (>= 1.4.4)
+  bootsnap
   brakeman
   capybara
-  cssbundling-rails (~> 1.4)
+  cssbundling-rails
   hiredis
-  honeybadger (~> 6.0)
+  honeybadger
   httparty
-  jsbundling-rails (~> 1.3)
+  jsbundling-rails
   lograge
   minitest
   mission_control-jobs
   mocha
   newrelic_rpm
-  nokogiri (>= 1.13.6)
+  nokogiri
   pg (< 2)
   propshaft
   puma (< 7)
-  rack (~> 3.1)
+  rack
   rack-mini-profiler
-  rack-session (~> 2.1)
+  rack-session
   rails (~> 8.0.0)
   rails-i18n
   rapidjson
@@ -422,15 +422,15 @@ DEPENDENCIES
   rubocop
   rubocop-rails
   ruby-limiter
-  solid_queue (~> 1.2)
+  solid_queue
   standard
   stimulus-rails
   testcontainers-postgres
-  truedl (~> 1.0.0)
+  truedl
   turbo-rails
   vcr
   view_component
-  web-console (>= 4.1.0)
+  web-console
   webmock
 
 CHECKSUMS

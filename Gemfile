@@ -3,29 +3,29 @@
 source "https://rubygems.org"
 
 gem "aws-sdk-s3"
-gem "bootsnap", ">= 1.4.4", require: false
-gem "cssbundling-rails", "~> 1.4"
+gem "bootsnap", require: false
+gem "cssbundling-rails"
 gem "hiredis"
-gem "honeybadger", "~> 6.0"
+gem "honeybadger"
 gem "httparty"
-gem "jsbundling-rails", "~> 1.3"
+gem "jsbundling-rails"
 gem "lograge"
 gem "mission_control-jobs"
 gem "newrelic_rpm"
-gem "nokogiri", ">= 1.13.6"
+gem "nokogiri"
 gem "pg", "< 2"
 gem "propshaft"
 gem "puma", "< 7"
-gem "rack", "~> 3.1"
-gem "rack-session", "~> 2.1"
+gem "rack"
+gem "rack-session"
 gem "rails", "~> 8.0.0"
 gem "rails-i18n"
 gem "rapidjson"
 gem "redis"
 gem "ruby-limiter"
-gem "solid_queue", "~> 1.2"
+gem "solid_queue"
 gem "stimulus-rails"
-gem "truedl", "~> 1.0.0"
+gem "truedl"
 gem "turbo-rails"
 gem "view_component"
 
@@ -35,7 +35,7 @@ group :development do
   gem "rubocop"
   gem "rubocop-rails"
   gem "standard"
-  gem "web-console", ">= 4.1.0"
+  gem "web-console"
 end
 
 group :test do
