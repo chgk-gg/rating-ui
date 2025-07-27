@@ -1,5 +1,4 @@
 require "test_helper"
-require "minitest/autorun"
 
 class TeamReleasePageTest < ActionDispatch::IntegrationTest
   fixtures :teams, :towns

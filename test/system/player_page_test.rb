@@ -1,5 +1,4 @@
 require "test_helper"
-require "minitest/autorun"
 
 class PlayerPageTest < ActionDispatch::IntegrationTest
   include ActiveRecord::TestFixtures

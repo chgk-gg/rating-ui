@@ -24,8 +24,6 @@ require "capybara/minitest"
 require "mocha/minitest"
 require_relative "factories"
 
-Rails.root.glob("test/jobs/**/*_test.rb").each { require it }
-
 class ActionDispatch::IntegrationTest
   include ActiveRecord::TestFixtures
   include Capybara::DSL
