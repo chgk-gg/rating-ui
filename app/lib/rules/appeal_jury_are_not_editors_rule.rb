@@ -13,6 +13,7 @@ module Rules
         .where(start_datetime: (Time.zone.today..(Time.zone.today + 3.days)))
         .where(maii_rating: true)
         .where("tournament_editors.player_id = tournament_appeal_jury.player_id")
+        .select("tournaments.id, tournaments.title")
         .group("tournaments.id, tournaments.title")
 
       tournaments.map do |tournament|
