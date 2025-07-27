@@ -7,6 +7,10 @@ class TournamentsMetadataJob < ApplicationJob
   attr_reader :category, :api_client
 
   def perform(category)
+    unless %w[all rating recently_updated starting_soon].include?(category)
+      raise ArgumentError, "category should be one of all, rating, recently_updated, starting_soon"
+    end
+
     @category = category
     @api_client = ChgkInfo::APIClient.new
 
@@ -69,16 +73,18 @@ class TournamentsMetadataJob < ApplicationJob
     tournament["dateStart"]&.start_with?("-0001") || tournament["dateEnd"]&.start_with?("-0001")
   end
 
-  def fetch_page(page_number)
+  def fetch_page(page)
     case category
     when "rating"
-      api_client.rating_tournaments(page: page_number)
+      api_client.rating_tournaments(page:)
     when "all"
-      api_client.all_tournaments(page: page_number)
+      api_client.all_tournaments(page:)
     when "recently_updated"
-      api_client.tournaments_updated_after(date: last_week, page: page_number)
+      api_client.tournaments_updated_after(date: last_week, page:)
+    when "starting_soon"
+      api_client.tournaments_starting_between(start_date: Time.zone.today.to_s, end_date: (Time.zone.today + 7).to_s, page:)
     else
-      raise ArgumentError, "category should be one of all, rating, recently_updated"
+      raise ArgumentError
     end
   end
 

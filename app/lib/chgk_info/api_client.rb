@@ -24,8 +24,8 @@ module ChgkInfo
       paged_fetch("/tournaments?properties.maiiRating=true", page)
     end
 
-    def tournaments_started_after(date:, page:)
-      paged_fetch("/tournaments?dateStart%5Bafter%5D=#{date}", page)
+    def tournaments_starting_between(start_date:, end_date:, page:)
+      paged_fetch("/tournaments?dateStart%5Bafter%5D=#{start_date}&dateStart%5Bbefore%5D=#{end_date}", page)
     end
 
     def tournaments_updated_after(date:, page:)

@@ -34,6 +34,17 @@ production:
     args: [ "all" ]
     schedule: every Wednesday at 2:15
 
+  # Once a day we refresh metadata for tournaments starting soon
+  starting_soon_tournaments_metadata:
+    class: TournamentsMetadataJob
+    args: [ "starting_soon" ]
+    schedule: every day at 8:00
+
+  # After that, we create notifications for tournaments breaking rules
+  tournaments_breaking_rules:
+    class: RulesJob
+    schedule: every day at 8:15
+
   # Names and towns for teams
   teams:
     class: TeamsJob
