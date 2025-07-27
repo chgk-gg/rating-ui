@@ -24,6 +24,14 @@ In the [rating-db](https://github.com/chgk-gg/rating-db) repository, there is a 
 
 The reason for this complication is that the models-specific part of the schema is maintained in rating-b (which is a Python project). We might want to have a single place that defines the whole schema, but we would still need an image like that for tests.
 
+However, you don’t need to do anything manually to use that image: this is handled by the [testcontainers](https://github.com/testcontainers/testcontainers-ruby) gem. Run tests with:
+
+```bash
+bundle exec rake test
+```
+
+When you run tests for the first on your machine, testcontainer will download the latest image with the schema. For each run, we create and destroy a container.
+
 ## Development
 
 Again, use [rating-db](https://github.com/chgk-gg/rating-db) to download a recent backup and run it with Docker.
