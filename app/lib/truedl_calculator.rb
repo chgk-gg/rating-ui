@@ -83,7 +83,7 @@ class TrueDLCalculator
     team_ids.each do |team_id|
       players = tournament_rosters[team_id].pluck("player_id")
       base_players = base_rosters.filter { |_, roster_id| roster_id == team_id }.map(&:first)
-      next if RosterContinuity.has_continuity?(players:, base_players:, date:)
+      next if RosterContinuity.roster_has_continuity?(players:, base_players:, date:)
 
       tournament_results.delete_if { |result| result.team_id == team_id }
     end
