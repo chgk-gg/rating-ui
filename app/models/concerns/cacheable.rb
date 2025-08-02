@@ -40,6 +40,7 @@ module Cacheable
   end
 
   def exec_query_with_cache(query, params, cache: false)
+    query, params = NamedParameters.convert_to_numbered(query, params) if params.is_a?(Hash)
     return run_query(query, params) unless cache
 
     # caller_locations(1, 1) is exec_query_smth
