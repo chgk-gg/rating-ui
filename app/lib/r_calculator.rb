@@ -22,7 +22,7 @@ class RCalculator
     rt = calculate_rt(players_ratings)
     base_players = @model.base_rosters_on_date(team_ids: [team_id], date:).pluck("player_id")
 
-    unless RosterContinuity.has_continuity?(players:, base_players:, date:)
+    unless RosterContinuity.roster_has_continuity?(players:, base_players:, date:)
       return Rs.new(rt:, rg: rt, r: 0, rb: 0)
     end
 
