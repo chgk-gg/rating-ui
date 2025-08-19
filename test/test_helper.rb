@@ -21,6 +21,7 @@ require_relative "../config/environment"
 require "rails/test_help"
 require "capybara/rails"
 require "capybara/minitest"
+require "capybara-screenshot/minitest"
 require "mocha/minitest"
 require_relative "factories"
 
@@ -28,6 +29,7 @@ class ActionDispatch::IntegrationTest
   include ActiveRecord::TestFixtures
   include Capybara::DSL
   include Capybara::Minitest::Assertions
+  include Capybara::Screenshot::MiniTestPlugin
 
   teardown do
     Capybara.reset_sessions!
