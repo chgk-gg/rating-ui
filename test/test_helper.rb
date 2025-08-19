@@ -81,6 +81,7 @@ MaterializedViewsJob.perform_now(InModel::DEFAULT_MODEL)
 
 ActiveRecord::Base.connection.execute("TRUNCATE b.release RESTART IDENTITY CASCADE")
 ActiveRecord::Base.connection.execute("TRUNCATE b.team_rating RESTART IDENTITY CASCADE")
+ActiveRecord::Base.connection.execute("TRUNCATE b.player_rating RESTART IDENTITY CASCADE")
 create_release("2024-09-05")
 create_release("2024-09-12")
 create_release("2024-09-19")
@@ -92,3 +93,6 @@ create_team_rating(release_id: 2, team_id: 3, rating: 12000, rating_change: -100
 create_team_rating(release_id: 1, team_id: 7, rating: 7500)
 create_team_rating(release_id: 2, team_id: 7, rating: 7500)
 create_team_rating(release_id: 2, team_id: 25, rating: 8000)
+
+create_player_rating(release_id: 2, player_id: 1, rating: 14000, place: 1)
+create_player_rating(release_id: 2, player_id: 2, rating: 12000, place: 2)
