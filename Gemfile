@@ -41,6 +41,7 @@ end
 group :test do
   gem "brakeman"
   gem "capybara"
+  gem "capybara-screenshot"
   gem "minitest"
   gem "mocha"
   gem "testcontainers-postgres"
