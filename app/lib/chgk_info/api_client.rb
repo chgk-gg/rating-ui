@@ -5,9 +5,11 @@ require "httparty"
 module ChgkInfo
   class APIClient
     include HTTParty
+
     base_uri "api.rating.chgk.info"
 
     extend Limiter::Mixin
+
     limit_method :fetch, rate: 60, balanced: true
 
     ITEMS_PER_PAGE = 100

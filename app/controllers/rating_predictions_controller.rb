@@ -1,5 +1,6 @@
 class RatingPredictionsController < ApplicationController
   include InModel
+
   def show
     id = params[:tournament_id].to_i
     tournament = Tournament.find(id)
