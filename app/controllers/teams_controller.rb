@@ -19,6 +19,6 @@ class TeamsController < ApplicationController
     @old_tournaments = Tournament.pre_maii_tournaments_for_team(team_id).map(&:attributes)
     @old_tournaments.each { |t| t["players"] = @all_players[t["id"]] }
 
-    @base_roster = @team.current_base_roster
+    @base_roster = @team.base_roster_for_season(@current_season.id)
   end
 end
