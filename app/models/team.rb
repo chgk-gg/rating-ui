@@ -18,12 +18,8 @@ class Team < ApplicationRecord
       .group_by(&:tournament_id)
   end
 
-  def current_base_roster
-    today = Time.zone.today
-    base_rosters.joins("left join seasons on base_rosters.season_id = seasons.id")
-      .joins("left join players on players.id = base_rosters.player_id")
-      .where("? between seasons.start and seasons.end", today)
-      .where("start_date <= ? and (end_date > ? or end_date is null)", today, today)
+  def base_roster_for_season(season_id)
+    base_rosters.where(season_id:).joins("left join players on players.id = base_rosters.player_id")
       .order("players.last_name")
       .select("players.id as player_id", players: [:first_name, :last_name])
   end

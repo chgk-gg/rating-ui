@@ -23,14 +23,11 @@ class TeamPageTest < ActionDispatch::IntegrationTest
   end
 
   test "team page has its base roster" do
+    Season.stubs(:current_season).returns(seasons(:season_2024))
+
     visit team_url(@team_id)
 
-    season_title = if Time.zone.today.month >= 9
-      "#{Time.zone.today.year}/#{(Time.zone.today.year + 1).to_s.last(2)}"
-    else
-      "#{Time.zone.today.year - 1}/#{Time.zone.today.year.to_s.last(2)}"
-    end
-    assert_text "Базовый состав на сезон #{season_title}"
+    assert_text "Базовый состав на сезон 2024/25"
 
     players = find("div.bg-gray-200 > div:nth-child(1)").all("p a")
     assert_equal ["Carlos Garcia", "Aisha Khan", "Hiroshi Tanaka"], players.map(&:text)
