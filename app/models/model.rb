@@ -5,6 +5,7 @@ class Model < ApplicationRecord
   include ReleaseQueries
   include TeamQueries
   include TournamentQueries
+
   has_many :true_dls, dependent: :destroy
 
   def cache_namespace
