@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
+require "active_job/continuable"
+
 class TeamsJob < ApplicationJob
+  include ActiveJob::Continuable
+
   queue_as :chgk_info_import
   limits_concurrency to: 1, key: :chgk_info_api
 
@@ -9,28 +13,25 @@ class TeamsJob < ApplicationJob
   def perform
     @api_client = ChgkInfo::APIClient.new
 
-    page_number = 1
-    teams = fetch_page(page_number)
+    step :fetch_page, start: 1 do |step|
+      loop do
+        teams = @api_client.teams(page: step.cursor)
+        break if teams.empty?
 
-    while teams.size > 0
-      team_rows = teams.map do
-        {
-          id: it["id"],
-          title: it["name"],
-          town_id: it.dig("town", "id")
-        }
+        team_rows = teams.map do
+          {
+            id: it["id"],
+            title: it["name"],
+            town_id: it.dig("town", "id")
+          }
+        end
+
+        ActiveRecord::Base.transaction do
+          Team.upsert_all(team_rows)
+        end
+
+        step.set!(step.cursor + 1)
       end
-
-      ActiveRecord::Base.transaction do
-        Team.upsert_all(team_rows)
-      end
-
-      page_number += 1
-      teams = fetch_page(page_number)
     end
-  end
-
-  def fetch_page(page)
-    @api_client.teams(page:)
   end
 end
