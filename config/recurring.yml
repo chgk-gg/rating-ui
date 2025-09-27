@@ -83,3 +83,7 @@ production:
   backup:
     class: BackupJob
     schedule: every day at 23:30
+
+  wrong_team_ids:
+    class: WrongTeamIdsJob
+    schedule: every day at 1:00
