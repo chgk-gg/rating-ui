@@ -19,7 +19,7 @@ module WrongTeamIds
       @tournament = tournament
       @release_date = next_thursday(tournament.end_datetime)
       @rosters = Hash.new { |h, k| h[k] = [] }
-      @seasons = Season.where("start < ? AND \"end\" > ?", @release_date, @release_date)
+      @seasons = Season.where("start < ? AND \"end\" >= ?", @release_date, @release_date)
     end
 
     def next_thursday(date)
