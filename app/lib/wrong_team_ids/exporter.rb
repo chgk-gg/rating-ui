@@ -11,7 +11,7 @@ module WrongTeamIds
     end
 
     def run
-      tournaments = Tournament.where(start_datetime: @start_date..)
+      tournaments = Tournament.rating_tournaments.where(start_datetime: @start_date..)
       Rails.logger.info "checking #{tournaments.count} tournaments"
 
       tournaments.each_with_index do |tournament, i|
