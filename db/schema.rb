@@ -10,19 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_02_111023) do
+ActiveRecord::Schema[8.1].define(version: 2025_09_21_204326) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "base_rosters", id: false, force: :cascade do |t|
+    t.date "end_date"
     t.serial "id", null: false
     t.integer "player_id"
-    t.integer "team_id"
     t.integer "season_id"
     t.date "start_date"
-    t.date "end_date"
+    t.integer "team_id"
     t.datetime "updated_at", precision: nil
     t.index ["player_id"], name: "base_rosters_player_id_index"
+    t.index ["season_id", "team_id", "player_id"], name: "index_base_rosters_on_season_id_and_team_id_and_player_id", unique: true
     t.index ["team_id"], name: "base_rosters_team_id_index"
   end
 
