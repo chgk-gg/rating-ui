@@ -7,9 +7,10 @@ module Rules
     end
 
     def self.offenders
-      tournaments = Tournament.left_joins(:tournament_appeal_jury)
+      tournaments = Tournament
+        .rating_tournaments
+        .left_joins(:tournament_appeal_jury)
         .where(start_datetime: (Time.zone.today..(Time.zone.today + 3.days)))
-        .where(maii_rating: true)
         .group("tournaments.id, tournaments.title")
         .having("count(tournament_appeal_jury.id) < 3")
         .select("tournaments.id, tournaments.title")
