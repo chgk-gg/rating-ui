@@ -8,7 +8,7 @@ class BaseRostersJob < ApplicationJob
   queue_as :chgk_info_import
   limits_concurrency to: 1, key: :chgk_info_api
 
-  def perform(teams_category:)
+  def perform(teams_category)
     raise ArgumentError unless %w[all from_rating_tournaments].include?(teams_category)
 
     team_ids = if teams_category == "from_rating_tournaments"
