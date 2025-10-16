@@ -71,10 +71,10 @@ production:
     args: [ "from_rating_tournaments" ]
     schedule: every day at 12:05
 
-  base_rosters_all:
-    class: BaseRostersJob
-    args: [ "all" ]
-    schedule: every Tuesday at 14:15
+#  base_rosters_all:
+#    class: BaseRostersJob
+#    args: [ "all" ]
+#    schedule: every Tuesday at 14:15
 
   clear_finished_jobs:
     command: "SolidQueue::Job.clear_finished_in_batches"
