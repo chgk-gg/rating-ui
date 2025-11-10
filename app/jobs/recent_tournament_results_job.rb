@@ -11,6 +11,10 @@ class RecentTournamentResultsJob < ApplicationJob
   end
 
   def recent_tournaments(days)
-    Tournament.where(end_datetime: (Time.zone.today - days)..Time.zone.today).pluck(:id)
+    # This style of `where` generates a `between 'earliest' and 'latest'` SQL query,
+    # with `'latest'` not being included. That’s why we add one more day.
+    earliest = Time.zone.today - days
+    latest = Time.zone.today + 1.day
+    Tournament.where(end_datetime: earliest..latest).pluck(:id)
   end
 end
