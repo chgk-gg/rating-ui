@@ -143,20 +143,21 @@ module ReleaseQueries
 
   def latest_release_id
     sql = <<~SQL
-        with team_count as (
-          select r.id, r.date, count(tr.team_id)
-          from #{name}.release r
-          left join #{name}.team_rating tr on tr.release_id = r.id
-          where r.date < now()
-          group by r.id, r.date
-      )
-
-        select id
-        from #{name}.release
-        where date = (select max(date) from team_count where count > 0)
+      select id
+      from #{name}.release
+      where date = (
+        select max(r.date)
+        from #{name}.release r
+        where r.date < now()
+          and exists (
+            select 1
+            from #{name}.team_rating tr
+            where tr.release_id = r.id
+          )
+        )
     SQL
 
-    exec_query_for_single_value(query: sql)
+    exec_query_for_single_value(query: sql, cache: true)
   end
 
   def count_all_teams_in_release(release_id:, team_name: nil, city: nil)
