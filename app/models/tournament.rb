@@ -11,6 +11,14 @@ class Tournament < ApplicationRecord
 
   scope :rating_tournaments, -> { where(maii_rating: true) }
 
+  # This style of `where` generates a `between 'earliest' and 'latest'` SQL query,
+  # with `'latest'` not being included. That's why we add one more day.
+  scope :recent_tournaments, ->(days) {
+    earliest = Time.zone.today - days
+    latest = Time.zone.today + 1.day
+    where(end_datetime: earliest..latest)
+  }
+
   def self.pre_maii_tournaments_for_team(team_id)
     Tournament.joins(:tournament_results)
       .where(tournament_results: {team_id:})
