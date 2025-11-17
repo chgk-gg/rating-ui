@@ -3,19 +3,19 @@
 require "active_job/continuable"
 require_relative "../lib/truedl_calculator"
 
-class TrueDLForAllTournamentsJob < ApplicationJob
+class TrueDLForRecentTournamentsJob < ApplicationJob
   include ActiveJob::Continuable
 
   queue_as :wrappers
 
-  def perform(model_name)
+  def perform(model_name, days)
     model = Model.find_by(name: model_name)
     unless model
       Rails.logger.error "No model with the name #{model_name}"
       return
     end
 
-    tournaments = Tournament.where("start_datetime >= '2021-09-01'")
+    tournaments = Tournament.recent_tournaments(days)
 
     step :calculate do |step|
       tournaments.find_each(start: step.cursor, batch_size: 10) do |tournament|
