@@ -91,5 +91,5 @@ production:
   # Once a week we recalculate TrueDL for all tournaments for the past year
   last_year_true_dl:
     class: TrueDLForRecentTournamentsJob
-    args: [ 365 ]
+    args: [ "b", 365 ]
     schedule: every Sunday at 14:15
