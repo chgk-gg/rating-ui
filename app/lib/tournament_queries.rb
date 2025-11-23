@@ -72,13 +72,11 @@ module TournamentQueries
 
   def tournament_players(tournament_id:)
     sql = <<~SQL
-      select tr.team_id, tr.player_id,
-          p.first_name || '&nbsp;' || last_name as name,
-          tr.flag
+      select tr.team_id, tr.player_id, tr.flag
       from public.tournament_rosters tr
       left join public.players p on tr.player_id = p.id
       where tr.tournament_id = $1
-      order by tr.team_id, tr.flag, p.last_name
+      order by tr.team_id, tr.flag
     SQL
 
     exec_query_for_hash(query: sql, params: [tournament_id], group_by: "team_id")
