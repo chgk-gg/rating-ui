@@ -32,11 +32,11 @@ class ReleaseTournamentPresenter
   end
 
   def tournament_id
-    @tournament.id if @tournament.present?
+    @tournament.presence&.id
   end
 
   def name
-    @tournament.name if @tournament.present?
+    @tournament.presence&.name
   end
 
   def date
@@ -44,19 +44,19 @@ class ReleaseTournamentPresenter
   end
 
   def team_id
-    @tournament.team_id if @tournament.present?
+    @tournament.presence&.team_id
   end
 
   def team_name
-    @tournament.team_name if @tournament.present?
+    @tournament.presence&.team_name
   end
 
   def place
-    @tournament.place if @tournament.present?
+    @tournament.presence&.place
   end
 
   def rating
-    @tournament.rating if @tournament.present?
+    @tournament.presence&.rating
   end
 
   def in_rating
