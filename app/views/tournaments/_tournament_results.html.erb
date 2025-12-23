@@ -1,26 +1,26 @@
-<table class="rating-table table-auto min-w-full">
+<table class="rating-table table-auto min-w-full" data-controller="table-sort">
   <thead>
   <tr class="rating-table-header">
-    <th class="px-2 py-2">Место</th>
+    <th class="px-2 py-2 cursor-pointer select-none" data-table-sort-target="header" data-sort-column="0" data-action="click->table-sort#sort"><span data-sort-indicator></span>Место</th>
     <th class="px-2 w-1/4">Команда</th>
     <th class="px-2">Город</th>
-    <th class="px-2">Взятые</th>
-    <th class="px-2">Рейтинг</th>
-    <th class="px-2">Прогноз</th>
-    <th class="px-2">D1</th>
-    <th class="pl-2 pr-4">D2</th>
-    <th class="pl-4 pr-2">RG</th>
-    <th class="px-2">R</th>
-    <th class="px-2">RT</th>
-    <th class="px-2">RB</th>
-    <th class="px-2">TrueDL</th>
+    <th class="px-2 cursor-pointer select-none" data-table-sort-target="header" data-sort-column="3" data-action="click->table-sort#sort"><span data-sort-indicator></span>Взятые</th>
+    <th class="px-2 cursor-pointer select-none" data-table-sort-target="header" data-sort-column="4" data-action="click->table-sort#sort"><span data-sort-indicator></span>Рейтинг</th>
+    <th class="px-2 cursor-pointer select-none" data-table-sort-target="header" data-sort-column="5" data-action="click->table-sort#sort"><span data-sort-indicator></span>Прогноз</th>
+    <th class="px-2 cursor-pointer select-none" data-table-sort-target="header" data-sort-column="6" data-action="click->table-sort#sort"><span data-sort-indicator></span>D1</th>
+    <th class="pl-2 pr-4 cursor-pointer select-none" data-table-sort-target="header" data-sort-column="7" data-action="click->table-sort#sort"><span data-sort-indicator></span>D2</th>
+    <th class="pl-4 pr-2 cursor-pointer select-none" data-table-sort-target="header" data-sort-column="8" data-action="click->table-sort#sort"><span data-sort-indicator></span>RG</th>
+    <th class="px-2 cursor-pointer select-none" data-table-sort-target="header" data-sort-column="9" data-action="click->table-sort#sort"><span data-sort-indicator></span>R</th>
+    <th class="px-2 cursor-pointer select-none" data-table-sort-target="header" data-sort-column="10" data-action="click->table-sort#sort"><span data-sort-indicator></span>RT</th>
+    <th class="px-2 cursor-pointer select-none" data-table-sort-target="header" data-sort-column="11" data-action="click->table-sort#sort"><span data-sort-indicator></span>RB</th>
+    <th class="px-2 cursor-pointer select-none" data-table-sort-target="header" data-sort-column="12" data-action="click->table-sort#sort"><span data-sort-indicator></span>TrueDL</th>
   </tr>
   </thead>
 
-  <tbody>
+  <tbody data-table-sort-target="body">
   <% @tournament.results.each do |result| %>
     <tr class="rating-table-row border-b">
-      <td class="px-2 text-center border-r dark:border-blue-900">
+      <td class="px-2 text-center border-r dark:border-blue-900" data-sort-value="<%= result.place %>">
         <%= render(PlaceChangeComponent.new(place: result.place, previous_place: result.predicted_place)) %>
       </td>
 
@@ -45,7 +45,7 @@
 
       <td class="px-2 text-center"><%= result.points %></td>
 
-      <td class="px-2 text-center">
+      <td class="px-2 text-center" data-sort-value="<%= result.rating %>">
         <%= result.rating %>
         <% unless result.in_rating %>
           <s>
@@ -64,7 +64,7 @@
       <td class="px-2 text-center"><%= result.r %></td>
       <td class="px-2 text-center"><%= result.rt %></td>
       <td class="px-2 text-center"><%= result.rb %></td>
-      <td class="px-2 text-center"><%= round_true_dl(result.truedl) %></td>
+      <td class="px-2 text-center" data-sort-value="<%= result.truedl || 0 %>"><%= round_true_dl(result.truedl) %></td>
     </tr>
   <% end %>
   </tbody>
