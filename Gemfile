@@ -4,6 +4,7 @@ source "https://rubygems.org"
 
 gem "aws-sdk-s3"
 gem "bootsnap", require: false
+gem "connection_pool", "< 3" # until https://github.com/rails/rails/pull/56294 gets released (presumably in 8.1.2)
 gem "cssbundling-rails"
 gem "hiredis"
 gem "honeybadger"
