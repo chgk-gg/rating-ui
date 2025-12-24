@@ -1,0 +1,9 @@
+game_jury_1:
+  id: 1
+  tournament_id: 1
+  player_id: 4
+
+game_jury_2:
+  id: 2
+  tournament_id: 1
+  player_id: 5
