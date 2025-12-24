@@ -1,17 +1,75 @@
 <% @title="#{@tournament.name} — рейтинг" %>
 <h1 class="text-center text-xl font-semibold"><%= @tournament.name %></h1>
-<h3 class="text-center py-2 text-l"><%= @tournament.start %> — <%= @tournament.end %></h3>
-<div class="text-center text-l hover:underline">
-  <%= link_to("Страница на rating.chgk.info", "https://rating.chgk.info/tournament/#{@tournament.id}") %>
+
+<div class="max-w-2xl mx-auto my-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+  <div class="space-y-3">
+    <div class="text-center">
+      <p class="text-l"><%= @tournament.start %> — <%= @tournament.end %></p>
+      <% unless @tournament.in_rating? %>
+        <p class="text-m">Не учитывается в рейтинге</p>
+      <% end %>
+      <p class="hover:underline">
+        <%= link_to("Страница на rating.chgk.info", "https://rating.chgk.info/tournament/#{@tournament.id}") %>
+      </p>
+      <% if @true_dl.present? %>
+        <p class="text-m">TrueDL: <%= round_true_dl(@true_dl) %></p>
+      <% end %>
+    </div>
+
+    <% if @tournament.editors.any? || @tournament.organizers.any? || @tournament.game_jury.any? || @tournament.appeal_jury.any? %>
+      <hr class="border-gray-200 dark:border-gray-600">
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+        <% if @tournament.editors.any? %>
+          <div>
+            <% header = @tournament.editors.size > 1 ? "Редакторы" : "Редактор" %>
+            <h3 class="font-semibold mb-1"><%= header %></h3>
+            <ul class="pl-4">
+              <% @tournament.editors.each do |editor| %>
+                <li><%= link_to "#{editor.first_name} #{editor.last_name}", player_path(player_id: editor.player_id), class: "hover:underline" %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <% if @tournament.organizers.any? %>
+          <div>
+            <% header = @tournament.organizers.size > 1 ? "Организаторы" : "Организатор" %>
+            <h3 class="font-semibold mb-1"><%= header %></h3>
+            <ul class="pl-4">
+              <% @tournament.organizers.each do |organizer| %>
+                <li><%= link_to "#{organizer.first_name} #{organizer.last_name}", player_path(player_id: organizer.player_id), class: "hover:underline" %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <% if @tournament.game_jury.any? %>
+          <div>
+            <h3 class="font-semibold mb-1">Игровое жюри</h3>
+            <ul class="pl-4">
+              <% @tournament.game_jury.each do |member| %>
+                <li><%= link_to "#{member.first_name} #{member.last_name}", player_path(player_id: member.player_id), class: "hover:underline" %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <% if @tournament.appeal_jury.any? %>
+          <div>
+            <h3 class="font-semibold mb-1">Апелляционное жюри</h3>
+            <ul class="pl-4">
+              <% @tournament.appeal_jury.each do |member| %>
+                <li><%= link_to "#{member.first_name} #{member.last_name}", player_path(player_id: member.player_id), class: "hover:underline" %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 </div>
-<% if @true_dl.present? %>
-  <p class="text-center py-2 text-m">
-    TrueDL: <%= round_true_dl(@true_dl) %>
-  </p>
-<% end %>
-<% unless @tournament.in_rating? %>
-  <p class="text-center py-2 text-m">Не учитывается в рейтинге</p>
-<% end %>
+
 <div data-controller="all-rosters"
      class="mx-auto">
   <button data-action="all-rosters#toggleAll"
