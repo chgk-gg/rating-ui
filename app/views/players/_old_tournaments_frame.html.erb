@@ -1,0 +1,8 @@
+<turbo-frame id="old-tournaments">
+  <h4 class="text-l text-center py-2">Турниры до рейтинга</h4>
+  <div class="py-2">
+    <% cache "player_old_tournaments_list/#{@model_name}/#{@player.id}" do %>
+      <%= render "old_tournaments_list" %>
+    <% end %>
+  </div>
+</turbo-frame>
