@@ -17,7 +17,7 @@
     Показать все составы
   </button>
   <div class="flex justify-center py-2">
-    <% cache "tournament_results/#{@model_name}/#{@tournament.id}" do %>
+    <% cache "tournament_rating_predictions/#{@model_name}/#{@tournament.id}" do %>
       <%= render "tournament_predictions" %>
     <% end %>
   </div>
