@@ -44,4 +44,53 @@ class TournamentsListTest < ActionDispatch::IntegrationTest
     assert_link "←"
     assert_link "→"
   end
+
+  test "tournaments can be searched by name" do
+    visit tournaments_url
+    fill_in "name", with: "Bled"
+    click_on "Поиск"
+
+    within "table tbody" do
+      assert_text "Bled Cup"
+      assert_text "Bled Cup Mirror"
+      rows = all("tr")
+      assert_equal 2, rows.count
+    end
+  end
+
+  test "tournaments can be searched by partial name" do
+    visit tournaments_url
+    fill_in "name", with: "Cesky"
+    click_on "Поиск"
+
+    within "table tbody" do
+      assert_text "Cesky Krumlov Championship 2025"
+      rows = all("tr")
+      assert_equal 1, rows.count
+    end
+  end
+
+  test "tournament search is case insensitive" do
+    visit tournaments_url
+    fill_in "name", with: "bled"
+    click_on "Поиск"
+
+    within "table tbody" do
+      assert_text "Bled Cup"
+      rows = all("tr")
+      assert rows.count >= 1
+    end
+  end
+
+  test "tournaments can be filtered by type" do
+    visit tournaments_url
+    select "Синхрон", from: "type_id"
+    click_on "Поиск"
+
+    within "table tbody" do
+      assert_text "Bled Cup Mirror"
+      rows = all("tr")
+      assert_equal 1, rows.count
+    end
+  end
 end
