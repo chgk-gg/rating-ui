@@ -15,3 +15,6 @@ application.register("player-rating-details", PlayerRatingDetailsController)
 
 import SingleRosterController from "./single_roster_controller"
 application.register("single-roster", SingleRosterController)
+
+import TableSortController from "./table_sort_controller"
+application.register("table-sort", TableSortController)
