@@ -40,9 +40,12 @@
   </div>
 </div>
 
-<h4 class="text-l text-center py-2">Турниры до рейтинга</h4>
-<div class="py-2">
-  <% cache "old_team_tournaments_list/#{@model_name}/#{@team.id}" do %>
-    <%= render "old_tournaments_list" %>
-  <% end %>
+<div class="py-2 text-center">
+  <turbo-frame id="old-tournaments">
+    <a href="<%= team_old_tournaments_path(model: @model_name, team_id: @team.id) %>"
+       class="rating-button"
+       data-turbo-frame="old-tournaments">
+      Показать турниры до 2021 года
+    </a>
+  </turbo-frame>
 </div>
