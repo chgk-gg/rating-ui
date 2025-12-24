@@ -82,7 +82,13 @@ module TournamentQueries
     exec_query_for_hash(query: sql, params: [tournament_id], group_by: "team_id")
   end
 
-  def tournaments_list(from:, to:)
+  def tournaments_list(from:, to:, name_filter: nil, type_id: nil)
+    filtered = name_filter.present? || type_id.present?
+    name_clause = "and t.title ilike $3" if name_filter.present?
+    type_clause = if type_id.present?
+      name_filter.present? ? "and t.typeoft_id = $4" : "and t.typeoft_id = $3"
+    end
+
     sql = <<~SQL
       with winners as (
           select tr.tournament_id, max(rating) as max_rating
@@ -96,6 +102,8 @@ module TournamentQueries
       left join winners w on t.id = w.tournament_id
       where t.maii_rating = true
         and t.end_datetime <= now() + interval '1 week'
+        #{name_clause}
+        #{type_clause}
       order by date desc
       limit $1
       offset $2;
@@ -103,17 +111,33 @@ module TournamentQueries
 
     limit = to - from + 1
     offset = from - 1
-    exec_query(query: sql, params: [limit, offset], result_class: TournamentListDetails, cache: true)
+    params = [limit, offset]
+    params << "%#{name_filter}%" if name_filter.present?
+    params << type_id.to_i if type_id.present?
+
+    exec_query(query: sql, params:, result_class: TournamentListDetails, cache: !filtered)
   end
 
-  def count_all_tournaments
+  def count_all_tournaments(name_filter: nil, type_id: nil)
+    filtered = name_filter.present? || type_id.present?
+    name_clause = "and title ilike $1" if name_filter.present?
+    type_clause = if type_id.present?
+      name_filter.present? ? "and typeoft_id = $2" : "and typeoft_id = $1"
+    end
+
     sql = <<~SQL
       select count(*)
       from public.tournaments
       where maii_rating = true
-        and end_datetime <= now() + interval '1 week';
+        and end_datetime <= now() + interval '1 week'
+        #{name_clause}
+        #{type_clause};
     SQL
 
-    exec_query_for_single_value(query: sql, cache: true)
+    params = []
+    params << "%#{name_filter}%" if name_filter.present?
+    params << type_id.to_i if type_id.present?
+
+    exec_query_for_single_value(query: sql, params:, cache: !filtered)
   end
 end

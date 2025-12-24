@@ -3,14 +3,26 @@
 class TournamentsController < ApplicationController
   include InModel
 
+  TOURNAMENT_TYPES = {
+    6 => "Строго синхронный",
+    3 => "Синхрон",
+    5 => "Общий зачёт",
+    8 => "Асинхрон",
+    2 => "Обычный"
+  }.freeze
+
   def index
-    @tournaments = current_model.tournaments_list(from:, to:)
+    @tournament_name = tournament_name
+    @type_id = type_id
+    @tournaments = current_model.tournaments_list(from:, to:, name_filter: @tournament_name, type_id: @type_id)
     @true_dls = TrueDl.where(model: current_model, tournament_id: @tournaments.map(&:id))
       .group(:tournament_id)
       .average(:true_dl)
       .to_h
 
     @paging = Paging.new(items_count: all_tournaments_count, from:, to:)
+    @filtered = @tournament_name.present? || @type_id.present?
+    @tournament_types = TOURNAMENT_TYPES
   end
 
   def show
@@ -33,7 +45,7 @@ class TournamentsController < ApplicationController
   private
 
   def clean_params
-    params.permit(:model, :from, :to)
+    params.permit(:model, :from, :to, :name, :type_id)
   end
 
   def from
@@ -44,7 +56,15 @@ class TournamentsController < ApplicationController
     @to ||= (clean_params[:to] || 50).to_i
   end
 
+  def tournament_name
+    @tournament_name ||= clean_params[:name]&.gsub("*", "")
+  end
+
+  def type_id
+    @type_id ||= clean_params[:type_id].presence
+  end
+
   def all_tournaments_count
-    current_model.count_all_tournaments
+    current_model.count_all_tournaments(name_filter: tournament_name, type_id:)
   end
 end
