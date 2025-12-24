@@ -4,7 +4,8 @@ class TournamentPageTest < ActionDispatch::IntegrationTest
   include ActiveRecord::TestFixtures
   include Capybara::DSL
 
-  fixtures :teams, :players, :towns, :tournaments, :tournament_results, :tournament_rosters
+  fixtures :teams, :players, :towns, :tournaments, :tournament_results, :tournament_rosters,
+    :tournament_editors, :tournament_organizers, :tournament_game_jury, :tournament_appeal_jury
 
   def setup
     @tournament_id = 1
@@ -78,5 +79,33 @@ class TournamentPageTest < ActionDispatch::IntegrationTest
         assert_text "21"
       end
     end
+  end
+
+  test "tournament page shows editors" do
+    visit tournament_url(@tournament_id)
+    assert_text "Редакторы"
+    assert_text "Hiroshi Tanaka"
+    assert_text "Aisha Khan"
+  end
+
+  test "tournament page shows organizer" do
+    visit tournament_url(@tournament_id)
+    assert_text "Организатор"
+    assert_text "Carlos Garcia"
+  end
+
+  test "tournament page shows game jury" do
+    visit tournament_url(@tournament_id)
+    assert_text "Игровое жюри"
+    assert_text "Alena Ivanova"
+    assert_text "Liam O'Connor"
+  end
+
+  test "tournament page shows appeal jury" do
+    visit tournament_url(@tournament_id)
+    assert_text "Апелляционное жюри"
+    assert_text "Fatima Hassan"
+    assert_text "Jin Park"
+    assert_text "Sofia Rossi"
   end
 end

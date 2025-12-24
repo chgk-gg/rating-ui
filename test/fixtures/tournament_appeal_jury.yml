@@ -1,0 +1,14 @@
+appeal_jury_1:
+  id: 1
+  tournament_id: 1
+  player_id: 6
+
+appeal_jury_2:
+  id: 2
+  tournament_id: 1
+  player_id: 7
+
+appeal_jury_3:
+  id: 3
+  tournament_id: 1
+  player_id: 8
