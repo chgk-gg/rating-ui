@@ -21,8 +21,6 @@
   </button>
 
   <div class="flex justify-center px-2 py-2">
-    <% cache "tournament_results/#{@model_name}/#{@tournament.id}" do %>
-      <%= render "tournament_results" %>
-    <% end %>
+    <%= render "tournament_results" %>
   </div>
 </div>
