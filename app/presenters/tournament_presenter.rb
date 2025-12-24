@@ -35,4 +35,28 @@ class TournamentPresenter
   def in_rating?
     @tournament.maii_rating
   end
+
+  def editors
+    @editors ||= staff_with_players(@tournament.tournament_editors)
+  end
+
+  def organizers
+    @organizers ||= staff_with_players(@tournament.tournament_organizers)
+  end
+
+  def game_jury
+    @game_jury ||= staff_with_players(@tournament.tournament_game_jury)
+  end
+
+  def appeal_jury
+    @appeal_jury ||= staff_with_players(@tournament.tournament_appeal_jury)
+  end
+
+  private
+
+  def staff_with_players(relation)
+    relation.joins(:player)
+      .select("players.id as player_id", "players.first_name", "players.last_name")
+      .order("players.last_name")
+  end
 end

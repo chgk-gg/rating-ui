@@ -97,7 +97,7 @@ class TournamentsMetadataJob < ApplicationJob
   end
 
   def save_organizers(tournament_hash)
-    update_helper_table(tournament_hash["id"], tournament_hash["organizers"], TournamentOrganizer)
+    update_helper_table(tournament_hash["id"], tournament_hash["orgcommittee"], TournamentOrganizer)
   end
 
   def save_game_jury(tournament_hash)
