@@ -45,6 +45,7 @@ group :test do
   gem "capybara-screenshot"
   gem "minitest"
   gem "mocha"
+  gem "selenium-webdriver"
   gem "testcontainers-postgres"
   gem "vcr"
   gem "webmock"
