@@ -3,7 +3,21 @@
   <div class="flex-col mx-auto my-1">
     <h1 class="text-center py-4 text-xl">Турниры</h1>
 
-    <% if @paging.display? %>
+    <div class="flex-row my-1">
+      <%= form_with method: :get do |form| %>
+        <%= form.text_field :name,
+                            value: @tournament_name,
+                            placeholder: "Название",
+                            class: "rating-text-field" %>
+        <%= form.select :type_id,
+                        options_for_select([["Все типы", ""]] + @tournament_types.map { |id, name| [name, id] }, @type_id),
+                        {},
+                        class: "mx-3 rating-text-field" %>
+        <%= form.submit "Поиск", class: "rating-button", name: nil %>
+      <% end %>
+    </div>
+
+    <% if @paging.display? && !@filtered %>
       <div class="flex-row my-2">
         <%= render "paging" %>
       </div>
@@ -35,7 +49,7 @@
   </tbody>
 </table>
 
-    <% if @paging.display? %>
+    <% if @paging.display? && !@filtered %>
       <div class="flex-row my-2">
         <%= render "paging" %>
       </div>
