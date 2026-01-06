@@ -11,6 +11,7 @@ Bundler/OrderedGems:
   Enabled: true
 
 AllCops:
+  TargetRubyVersion: 3.5 # until standard updates to rubocop 1.82.0
   NewCops: enable
   SuggestExtensions: false
   Exclude:
