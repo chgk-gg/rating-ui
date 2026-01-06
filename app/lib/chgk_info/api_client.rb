@@ -64,6 +64,10 @@ module ChgkInfo
       fetch("/seasons")
     end
 
+    def tournament_appeals(tournament_id:)
+      fetch("/tournaments/#{tournament_id}/appeals?page=1")
+    end
+
     private
 
     def paged_fetch(query, page)
