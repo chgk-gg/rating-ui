@@ -32,7 +32,8 @@ class RulesJob < ApplicationJob
       Rules::EditorsPresentRule,
       Rules::AppealJuryAreNotEditorsRule,
       Rules::GameJuryPresentRule,
-      Rules::ResultsUploadedRule
+      Rules::ResultsUploadedRule,
+      Rules::AppealsSynchRule
     ]
   end
 
