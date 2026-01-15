@@ -23,7 +23,7 @@ module ChgkInfo
     end
 
     def rating_tournaments(page:)
-      paged_fetch("/tournaments?properties.maiiRating=true", page)
+      paged_fetch("/tournaments?properties.ggRating=true", page)
     end
 
     def tournaments_starting_between(start_date:, end_date:, page:)

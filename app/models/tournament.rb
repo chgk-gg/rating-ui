@@ -1,6 +1,7 @@
 class Tournament < ApplicationRecord
   self.primary_key = "id"
   self.inheritance_column = nil
+  self.ignored_columns += [:maii_rating_updated_at, :maii_aegis, :maii_aegis_updated_at]
 
   has_many :tournament_results, dependent: :destroy
   has_many :tournament_rosters, dependent: :destroy
