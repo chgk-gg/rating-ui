@@ -27,7 +27,7 @@ class TournamentsMetadataJob < ApplicationJob
       questions_count: tournament_hash["questionQty"]&.values&.sum,
       type: tournament_hash.dig("type", "name"),
       typeoft_id: tournament_hash.dig("type", "id"),
-      maii_rating: tournament_hash["ggRating"],
+      maii_rating: tournament_hash["rating"],
       in_old_rating: tournament_hash["tournamentInRatingBalanced"]
     )
 
