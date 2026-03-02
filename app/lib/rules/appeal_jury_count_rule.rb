@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Rules
   class AppealJuryCountRule < AbstractRule
     def self.description

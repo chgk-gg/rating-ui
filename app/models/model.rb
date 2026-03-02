@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Model < ApplicationRecord
   include PlayerQueries
   include ReleaseQueries

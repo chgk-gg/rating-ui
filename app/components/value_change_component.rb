@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class ValueChangeComponent < ViewComponent::Base
   def initialize(change:)
     @change = change

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class PlayerComponent < ViewComponent::Base
   attr_reader :player_id, :name
   def initialize(player:)

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module TournamentsHelper
   def tournaments_link_to_page(page:, tournaments_per_page:)
     top_place = (tournaments_per_page * (page - 1)) + 1

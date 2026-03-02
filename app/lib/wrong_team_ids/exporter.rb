@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module WrongTeamIds
   class Exporter
     def self.run(with_start_date_after:)

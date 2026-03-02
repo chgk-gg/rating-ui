@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class MaterializedViewsJob < ApplicationJob
   queue_as :transform
 

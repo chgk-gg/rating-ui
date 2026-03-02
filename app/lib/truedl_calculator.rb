@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class TrueDLCalculator
   TrueDLInput = Data.define(:teams, :questions_count)
 

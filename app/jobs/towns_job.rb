@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class TownsJob < ApplicationJob
   queue_as :chgk_info_import
   limits_concurrency to: 1, key: :chgk_info_api

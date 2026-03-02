@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class CacheController < ApplicationController
   def reset
     Rails.cache.clear

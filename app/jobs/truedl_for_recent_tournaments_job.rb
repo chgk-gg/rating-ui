@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require "active_job/continuable"
 require_relative "../lib/truedl_calculator"
 

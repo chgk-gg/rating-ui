@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module RosterContinuity
   FIRST_DATE_OF_2022_RULES = Date.new(2022, 11, 18)
 

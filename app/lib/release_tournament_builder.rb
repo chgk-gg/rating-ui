@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class ReleaseTournamentBuilder
   def self.build(releases, tournaments, players)
     new(releases, tournaments, players).build

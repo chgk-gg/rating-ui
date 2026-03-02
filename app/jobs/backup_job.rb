@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class BackupJob < ApplicationJob
   queue_as :backup
 

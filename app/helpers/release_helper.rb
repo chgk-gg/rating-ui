@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module ReleaseHelper
   def link_to_page(release_id:, page:, teams_per_page:, team:, city:)
     top_place = (teams_per_page * (page - 1)) + 1

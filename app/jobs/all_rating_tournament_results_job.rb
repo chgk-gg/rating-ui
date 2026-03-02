@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class AllRatingTournamentResultsJob < ApplicationJob
   queue_as :wrappers
 

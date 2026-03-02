@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class ReleasePresenter
   attr_reader :id, :teams, :teams_in_release_count
 

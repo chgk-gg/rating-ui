@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class MaterializedViewsController < ApplicationController
   def recreate_views
     MaterializedViewsJob.perform_later(params_model)

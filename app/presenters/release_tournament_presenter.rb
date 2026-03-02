@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class ReleaseTournamentPresenter
   attr_reader :players
   attr_accessor :rows

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class ApplicationController < ActionController::Base
   unless Rails.env.local?
     rescue_from NoMethodError, with: :show_missing_model_error

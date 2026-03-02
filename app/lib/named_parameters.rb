@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # Converts queries with named parameters (:first_name, :last_name) into queries with numbered parameters ($1, $2),
 # returning both the modified query and an array of parameters.
 # We need this only for SELECT queries and only for manually written ones,

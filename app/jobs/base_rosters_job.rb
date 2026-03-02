@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require "active_job/continuable"
 
 class BaseRostersJob < ApplicationJob

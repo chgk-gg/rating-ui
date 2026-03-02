@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Paging
   attr_reader :from, :to, :items_count
 

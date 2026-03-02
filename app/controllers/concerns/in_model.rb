@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module InModel
   DEFAULT_MODEL = "b"
   MISSING_MODEL_ERROR = "Модели с таким именем нет"

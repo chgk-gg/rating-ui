@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Rules
   class ResultsUploadedRule < AbstractRule
     def self.description

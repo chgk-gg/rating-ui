@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # Given a tournament, finds teams that should be assigned a different ID.
 # If a team’s roster has enough players to be continuous to some base roster,
 # we should reassign it to that base roster’s team_id.

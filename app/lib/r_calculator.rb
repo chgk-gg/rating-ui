@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 Rs = Data.define(:rg, :r, :rt, :rb)
 
 class RCalculator

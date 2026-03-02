@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 namespace :solid_queue do
   desc "Clear pending jobs. Optionally specify a queue: rake solid_queue:clear[queue_name]"
   task :clear, [:queue] => :environment do |_t, args|

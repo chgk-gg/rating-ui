@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module PlayerReleasesHelper
   def link_to_player_release_page(release_id:, page:, players_per_page:, first_name:, last_name:)
     top_place = (players_per_page * (page - 1)) + 1

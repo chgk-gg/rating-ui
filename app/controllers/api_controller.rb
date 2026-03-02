@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class APIController < ActionController::Base
   rescue_from ActiveRecord::StatementInvalid, with: :show_model_errors
 

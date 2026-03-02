@@ -19,6 +19,9 @@ AllCops:
     - 'bin/*'
     - vendor/bundle/**/*
 
+Style/FrozenStringLiteralComment:
+  EnforcedStyle: never
+
 Style/Documentation:
   Enabled: false
 Style/NumericPredicate:

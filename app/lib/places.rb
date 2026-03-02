@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Places
   def self.add_top_and_bottom_places!(teams)
     grouped_by_place = teams.each_with_object(Hash.new { |h, k| h[k] = [] }) do |team, hash|

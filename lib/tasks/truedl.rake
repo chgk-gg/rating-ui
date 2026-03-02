@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require_relative "../../app/lib/truedl_calculator"
 
 namespace :true_dl do
