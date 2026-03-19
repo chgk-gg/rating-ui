@@ -76,7 +76,7 @@ module ChgkInfo
       response = self.class.get(query.to_s, headers: @headers)
       JSON.parse(response.body)
     rescue SocketError, Errno::ECONNREFUSED, Errno::ETIMEDOUT, JSON::ParserError
-      logger.warn "connection refused at #{query}, retrying in 3 seconds"
+      Rails.logger.warn "connection refused at #{query}, retrying in 3 seconds"
       sleep(3)
       retry
     end
