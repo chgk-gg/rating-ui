@@ -10,7 +10,7 @@ namespace :tournament_results do
       next
     end
 
-    puts "Found #{tournament_ids.size} tournaments for team #{args[:team_id]}: #{tournament_ids.join(', ')}"
+    puts "Found #{tournament_ids.size} tournaments for team #{args[:team_id]}: #{tournament_ids.join(", ")}"
 
     tournament_ids.each do |tournament_id|
       SingleTournamentResultsJob.perform_later(tournament_id)
