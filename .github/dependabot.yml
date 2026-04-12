@@ -3,18 +3,28 @@ updates:
   - package-ecosystem: "bundler"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "weekly"
+    cooldown:
+      default-days: 7
     groups:
       dev-dependencies:
         # Define patterns to include dependencies in the group (based on
         # dependency name)
         patterns:
-          - "rubocop*"
+          - "benchmark"
+          - "brakeman"
           - "capybara"
+          - "capybara-screenshot"
           - "minitest"
-          - "standard"
-          - "web-console"
+          - "mocha"
           - "rack-mini-profiler"
+          - "rubocop*"
+          - "selenium-webdriver"
+          - "standard"
+          - "testcontainers-postgres"
+          - "vcr"
+          - "web-console"
+          - "webmock"
 
   - package-ecosystem: "docker"
     directory: "/"
