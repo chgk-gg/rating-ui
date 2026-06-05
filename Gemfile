@@ -1,4 +1,4 @@
-source "https://rubygems.org"
+source "https://rubygems.org", cooldown: 7
 
 gem "aws-sdk-s3"
 gem "bootsnap", require: false
