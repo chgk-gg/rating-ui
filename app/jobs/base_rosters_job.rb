@@ -20,7 +20,6 @@ class BaseRostersJob < ApplicationJob
     step :fetch_rosters, start: 0 do |step|
       team_ids[step.cursor..].each do |team_id|
         rosters = @api_client.team_rosters(team_id:)
-        next if rosters.empty?
 
         roster_rows = rosters.map do
           {
@@ -32,13 +31,24 @@ class BaseRostersJob < ApplicationJob
           }
         end
 
-        ActiveRecord::Base.transaction do
-          BaseRoster.upsert_all(roster_rows, unique_by: %i[team_id player_id season_id])
-        end
+        sync_team_roster(team_id, roster_rows)
 
         step.advance!
         sleep Random.rand(1.0)
       end
+    end
+  end
+
+  def sync_team_roster(team_id, roster_rows)
+    BaseRoster.transaction do
+      stale = BaseRoster.where(team_id:)
+      if roster_rows.any?
+        kept = roster_rows.map { "(#{it[:player_id].to_i}, #{it[:season_id].to_i})" }.join(", ")
+        stale = stale.where.not(Arel.sql("(player_id, season_id) IN (#{kept})"))
+      end
+      stale.delete_all
+
+      BaseRoster.upsert_all(roster_rows, unique_by: %i[team_id player_id season_id]) if roster_rows.any?
     end
   end
 
