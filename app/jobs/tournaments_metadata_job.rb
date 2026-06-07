@@ -104,9 +104,17 @@ class TournamentsMetadataJob < ApplicationJob
   end
 
   def update_helper_table(tournament_id, entries, model)
-    return unless entries
+    player_ids = (entries || []).map { it["id"] }
 
-    data = entries.map { {player_id: it["id"], tournament_id:} }
-    model.upsert_all(data, unique_by: %i[tournament_id player_id])
+    model.transaction do
+      stale = model.where(tournament_id:)
+      stale = stale.where.not(player_id: player_ids) if player_ids.any?
+      stale.delete_all
+
+      if player_ids.any?
+        data = player_ids.map { {player_id: it, tournament_id:} }
+        model.upsert_all(data, unique_by: %i[tournament_id player_id])
+      end
+    end
   end
 end
