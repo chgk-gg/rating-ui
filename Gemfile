@@ -2,7 +2,7 @@ source "https://rubygems.org", cooldown: 7
 
 gem "aws-sdk-s3"
 gem "bootsnap", require: false
-gem "connection_pool", "< 3" # until https://github.com/rails/rails/pull/56294 gets released (presumably in 8.1.2)
+gem "connection_pool"
 gem "cssbundling-rails"
 gem "hiredis"
 gem "honeybadger"
@@ -14,7 +14,7 @@ gem "newrelic_rpm"
 gem "nokogiri"
 gem "pg", "< 2"
 gem "propshaft"
-gem "puma", "< 8"
+gem "puma"
 gem "rack"
 gem "rack-session"
 gem "rails", "8.1.3"
