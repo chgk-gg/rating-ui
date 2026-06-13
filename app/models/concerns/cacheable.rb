@@ -48,6 +48,8 @@ module Cacheable
     Rails.cache.fetch(cache_key, expires_in: 24.hours) do
       run_query(query, params)
     end
+  rescue Redis::TimeoutError, Redis::CannotConnectError
+    run_query(query, params)
   end
 
   def run_query(query, params)
