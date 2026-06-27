@@ -32,6 +32,10 @@ module ChgkInfo
       paged_fetch("/tournaments?lastEditDate%5Bafter%5D=#{date}", page)
     end
 
+    def single_tournament(id:)
+      fetch("/tournaments/#{id}")
+    end
+
     def tournament_results(tournament_id:)
       params = "results?includeTeamMembers=0&includeMasksAndControversials=1&includeTeamFlags=0&includeRatingB=0"
       fetch("/tournaments/#{tournament_id}/#{params}")

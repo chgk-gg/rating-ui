@@ -8,12 +8,20 @@ module Rules
       TournamentRoster.destroy_all
     end
 
+    # Tournaments that reach the offenders list have their existence verified against
+    # the source. Pretend they all still exist so they are reported rather than deleted.
+    def stub_source_still_exists
+      ChgkInfo::APIClient.any_instance.stubs(:single_tournament).returns({"id" => 1, "name" => "Still here"})
+    end
+
     test "offenders returns empty string when no tournaments match criteria" do
       result = ResultsUploadedRule.offenders
       assert_equal "", result
     end
 
     test "offenders includes tournament with no results or rosters" do
+      stub_source_still_exists
+
       tournament = Tournament.create!(
         id: 1,
         title: "Test Tournament",
@@ -58,6 +66,8 @@ module Rules
     end
 
     test "offenders only includes tournaments within date range" do
+      stub_source_still_exists
+
       Tournament.create!(
         id: 4,
         title: "Too Recent Tournament",
@@ -88,6 +98,8 @@ module Rules
     end
 
     test "offenders only includes tournaments with maii_rating true" do
+      stub_source_still_exists
+
       Tournament.create!(
         id: 7,
         title: "Non-MAII Tournament",
@@ -110,6 +122,8 @@ module Rules
     end
 
     test "offenders only includes tournaments with type Обычный" do
+      stub_source_still_exists
+
       Tournament.create!(
         id: 9,
         title: "Online Tournament",
@@ -132,6 +146,8 @@ module Rules
     end
 
     test "offenders returns multiple tournaments joined by newlines" do
+      stub_source_still_exists
+
       tournament1 = Tournament.create!(
         id: 11,
         title: "First Tournament",
@@ -156,7 +172,24 @@ module Rules
       assert_includes lines, "<a href='https://rating.chgk.info/tournament/#{tournament2.id}'>#{tournament2.title}</a>"
     end
 
+    test "offenders deletes and excludes tournaments that no longer exist at the source" do
+      tournament = Tournament.create!(
+        id: 14,
+        title: "Deleted At Source",
+        end_datetime: Time.zone.today - 10.days,
+        type: "Обычный",
+        maii_rating: true
+      )
+
+      ChgkInfo::APIClient.any_instance.stubs(:single_tournament).returns({"status" => 404})
+
+      assert_equal "", ResultsUploadedRule.offenders
+      assert_not Tournament.exists?(tournament.id)
+    end
+
     test "message combines description and offenders" do
+      stub_source_still_exists
+
       tournament = Tournament.create!(
         id: 13,
         title: "Message Test Tournament",
