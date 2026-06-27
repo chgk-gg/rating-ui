@@ -41,12 +41,12 @@ class BaseRostersJob < ApplicationJob
 
   def sync_team_roster(team_id, roster_rows)
     BaseRoster.transaction do
-      stale = BaseRoster.where(team_id:)
-      if roster_rows.any?
-        kept = roster_rows.map { "(#{it[:player_id].to_i}, #{it[:season_id].to_i})" }.join(", ")
-        stale = stale.where.not(Arel.sql("(player_id, season_id) IN (#{kept})"))
-      end
-      stale.delete_all
+      kept = roster_rows.map { [it[:player_id], it[:season_id]] }.to_set
+      stale_ids = BaseRoster.where(team_id:)
+        .pluck(:id, :player_id, :season_id)
+        .reject { |_id, player_id, season_id| kept.include?([player_id, season_id]) }
+        .map(&:first)
+      BaseRoster.where(id: stale_ids).delete_all
 
       BaseRoster.upsert_all(roster_rows, unique_by: %i[team_id player_id season_id]) if roster_rows.any?
     end
