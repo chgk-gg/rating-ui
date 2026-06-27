@@ -11,6 +11,7 @@ module Rules
         .where(type: "Обычный")
         .where.missing(:tournament_results)
         .where.missing(:tournament_rosters)
+        .reject(&:delete_if_stopped_existing_at_source)
 
       tournaments.map do |tournament|
         "<a href='https://rating.chgk.info/tournament/#{tournament.id}'>#{tournament.title}</a>"

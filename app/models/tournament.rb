@@ -37,4 +37,15 @@ class Tournament < ApplicationRecord
       .order("tournament_rosters.team_id, tournament_rosters.flag, players.last_name")
       .select(:team_id, :flag, "players.id as player_id", players: [:first_name, :last_name])
   end
+
+  # Intended for usage in chains like Tournament.where().reject(:delete_if_stopped_existing_at_source).
+  # But there is no point in just checking the source and not deleting a tournament in our database,
+  # so the method runs `destroy` and returns a proper boolean result from `destroyed?`.
+  def delete_if_stopped_existing_at_source
+    chgk_info_response = ChgkInfo::APIClient.new.single_tournament(id:)
+    return false unless chgk_info_response["status"] == 404
+
+    destroy
+    destroyed?
+  end
 end
