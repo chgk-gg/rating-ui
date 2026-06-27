@@ -1,0 +1,183 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.rating.chgk.info/teams/62868/seasons?itemsPerPage=500&page=1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 301
+      message: Moved Permanently
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Sat, 27 Jun 2026 16:17:11 GMT
+      Content-Type:
+      - text/html
+      Content-Length:
+      - '162'
+      Connection:
+      - keep-alive
+      Location:
+      - https://api.rating.chgk.net/teams/62868/seasons?page=1&itemsPerPage=500
+      Content-Security-Policy:
+      - upgrade-insecure-requests
+    body:
+      encoding: UTF-8
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n<hr><center>nginx</center>\r\n</body>\r\n</html>\r\n"
+  recorded_at: Sat, 27 Jun 2026 16:17:11 GMT
+- request:
+    method: get
+    uri: https://api.rating.chgk.net/teams/62868/seasons?itemsPerPage=500&page=1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.18.0 (Ubuntu)
+      Date:
+      - Sat, 27 Jun 2026 16:17:11 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Allow:
+      - OPTIONS, HEAD, GET
+      Cache-Control:
+      - no-cache, private
+      Content-Security-Policy:
+      - upgrade-insecure-requests
+      - upgrade-insecure-requests
+      Etag:
+      - W/"2a577ef888ec6beb"
+      Link:
+      - <https://api.rating.chgk.net/docs.jsonld>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation"
+      Vary:
+      - Accept
+      - Accept-Encoding
+      - Authorization
+      - Content-Type
+      - Origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - deny
+    body:
+      encoding: ASCII-8BIT
+      string: '[{"idplayer":24850,"idseason":52,"idteam":62868,"dateAdded":"2018-10-12T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":59270,"idseason":52,"idteam":62868,"dateAdded":"2018-10-12T00:00:00+00:00","dateRemoved":null,"playerNumber":1},{"idplayer":72156,"idseason":52,"idteam":62868,"dateAdded":"2019-06-07T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":72160,"idseason":52,"idteam":62868,"dateAdded":"2018-10-12T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":86775,"idseason":52,"idteam":62868,"dateAdded":"2018-10-12T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":134991,"idseason":52,"idteam":62868,"dateAdded":"2019-04-26T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":24850,"idseason":53,"idteam":62868,"dateAdded":"2019-08-21T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":59270,"idseason":53,"idteam":62868,"dateAdded":"2019-08-21T00:00:00+00:00","dateRemoved":null,"playerNumber":1},{"idplayer":72156,"idseason":53,"idteam":62868,"dateAdded":"2019-08-22T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":72160,"idseason":53,"idteam":62868,"dateAdded":"2019-08-21T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":86775,"idseason":53,"idteam":62868,"dateAdded":"2019-08-21T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":134991,"idseason":53,"idteam":62868,"dateAdded":"2019-08-21T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":9801,"idseason":56,"idteam":62868,"dateAdded":"2021-09-03T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":24850,"idseason":56,"idteam":62868,"dateAdded":"2021-09-03T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":59270,"idseason":56,"idteam":62868,"dateAdded":"2021-09-03T00:00:00+00:00","dateRemoved":null,"playerNumber":1},{"idplayer":72156,"idseason":56,"idteam":62868,"dateAdded":"2021-09-03T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":72160,"idseason":56,"idteam":62868,"dateAdded":"2021-09-03T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":86775,"idseason":56,"idteam":62868,"dateAdded":"2021-09-03T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":96330,"idseason":56,"idteam":62868,"dateAdded":"2021-09-03T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":134991,"idseason":56,"idteam":62868,"dateAdded":"2021-09-03T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":134991,"idseason":57,"idteam":62868,"dateAdded":"2022-10-21T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":9801,"idseason":57,"idteam":62868,"dateAdded":"2022-10-21T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":24850,"idseason":57,"idteam":62868,"dateAdded":"2022-10-21T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":59270,"idseason":57,"idteam":62868,"dateAdded":"2022-10-21T00:00:00+00:00","dateRemoved":null,"playerNumber":1},{"idplayer":72160,"idseason":57,"idteam":62868,"dateAdded":"2022-10-21T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":86775,"idseason":57,"idteam":62868,"dateAdded":"2022-10-21T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":96330,"idseason":57,"idteam":62868,"dateAdded":"2022-10-21T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":9801,"idseason":58,"idteam":62868,"dateAdded":"2023-08-01T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":24850,"idseason":58,"idteam":62868,"dateAdded":"2023-08-01T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":59270,"idseason":58,"idteam":62868,"dateAdded":"2023-08-01T00:00:00+00:00","dateRemoved":null,"playerNumber":1},{"idplayer":72160,"idseason":58,"idteam":62868,"dateAdded":"2023-08-01T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":86775,"idseason":58,"idteam":62868,"dateAdded":"2023-08-01T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":96330,"idseason":58,"idteam":62868,"dateAdded":"2023-08-01T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":134991,"idseason":58,"idteam":62868,"dateAdded":"2023-08-01T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":25121,"idseason":58,"idteam":62868,"dateAdded":"2023-11-03T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":9801,"idseason":59,"idteam":62868,"dateAdded":"2024-08-01T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":24850,"idseason":59,"idteam":62868,"dateAdded":"2024-08-01T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":25121,"idseason":59,"idteam":62868,"dateAdded":"2024-08-01T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":86775,"idseason":59,"idteam":62868,"dateAdded":"2024-08-01T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":96330,"idseason":59,"idteam":62868,"dateAdded":"2024-08-01T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":134991,"idseason":59,"idteam":62868,"dateAdded":"2024-08-01T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":59270,"idseason":59,"idteam":62868,"dateAdded":"2024-08-01T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":72160,"idseason":59,"idteam":62868,"dateAdded":"2024-08-02T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":24850,"idseason":60,"idteam":62868,"dateAdded":"2025-08-02T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":25121,"idseason":60,"idteam":62868,"dateAdded":"2025-08-02T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":134991,"idseason":60,"idteam":62868,"dateAdded":"2025-08-02T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":86775,"idseason":60,"idteam":62868,"dateAdded":"2025-08-02T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":59270,"idseason":60,"idteam":62868,"dateAdded":"2025-08-02T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":9801,"idseason":60,"idteam":62868,"dateAdded":"2025-08-02T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":96330,"idseason":60,"idteam":62868,"dateAdded":"2025-08-02T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":72160,"idseason":60,"idteam":62868,"dateAdded":"2025-08-02T00:00:00+00:00","dateRemoved":null,"playerNumber":0}]'
+  recorded_at: Sat, 27 Jun 2026 16:17:11 GMT
+- request:
+    method: get
+    uri: http://api.rating.chgk.info/teams/85064/seasons?itemsPerPage=500&page=1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 301
+      message: Moved Permanently
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Sat, 27 Jun 2026 16:17:11 GMT
+      Content-Type:
+      - text/html
+      Content-Length:
+      - '162'
+      Connection:
+      - keep-alive
+      Location:
+      - https://api.rating.chgk.net/teams/85064/seasons?page=1&itemsPerPage=500
+      Content-Security-Policy:
+      - upgrade-insecure-requests
+    body:
+      encoding: UTF-8
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n<hr><center>nginx</center>\r\n</body>\r\n</html>\r\n"
+  recorded_at: Sat, 27 Jun 2026 16:17:11 GMT
+- request:
+    method: get
+    uri: https://api.rating.chgk.net/teams/85064/seasons?itemsPerPage=500&page=1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.18.0 (Ubuntu)
+      Date:
+      - Sat, 27 Jun 2026 16:17:12 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Allow:
+      - OPTIONS, HEAD, GET
+      Cache-Control:
+      - no-cache, private
+      Content-Security-Policy:
+      - upgrade-insecure-requests
+      - upgrade-insecure-requests
+      Etag:
+      - W/"a0810c08d5e05f3d"
+      Link:
+      - <https://api.rating.chgk.net/docs.jsonld>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation"
+      Vary:
+      - Accept
+      - Accept-Encoding
+      - Authorization
+      - Content-Type
+      - Origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - deny
+    body:
+      encoding: ASCII-8BIT
+      string: '[{"idplayer":39285,"idseason":56,"idteam":85064,"dateAdded":"2022-02-18T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":158668,"idseason":56,"idteam":85064,"dateAdded":"2022-02-18T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":5611,"idseason":57,"idteam":85064,"dateAdded":"2022-08-20T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":29516,"idseason":57,"idteam":85064,"dateAdded":"2022-08-20T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":39285,"idseason":57,"idteam":85064,"dateAdded":"2022-08-20T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":40393,"idseason":57,"idteam":85064,"dateAdded":"2022-08-20T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":158668,"idseason":57,"idteam":85064,"dateAdded":"2022-08-20T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":226275,"idseason":57,"idteam":85064,"dateAdded":"2022-10-14T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":29516,"idseason":58,"idteam":85064,"dateAdded":"2023-08-26T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":40393,"idseason":58,"idteam":85064,"dateAdded":"2023-08-26T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":158668,"idseason":58,"idteam":85064,"dateAdded":"2023-08-26T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":226275,"idseason":58,"idteam":85064,"dateAdded":"2023-08-26T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":5611,"idseason":58,"idteam":85064,"dateAdded":"2023-09-01T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":39285,"idseason":58,"idteam":85064,"dateAdded":"2023-09-01T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":5611,"idseason":59,"idteam":85064,"dateAdded":"2024-09-06T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":39285,"idseason":59,"idteam":85064,"dateAdded":"2024-09-06T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":40393,"idseason":59,"idteam":85064,"dateAdded":"2024-09-06T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":158668,"idseason":59,"idteam":85064,"dateAdded":"2024-09-06T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":29516,"idseason":59,"idteam":85064,"dateAdded":"2024-09-13T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":226275,"idseason":59,"idteam":85064,"dateAdded":"2024-12-06T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":40393,"idseason":60,"idteam":85064,"dateAdded":"2025-08-22T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":158668,"idseason":60,"idteam":85064,"dateAdded":"2025-08-22T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":5611,"idseason":60,"idteam":85064,"dateAdded":"2025-08-29T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":39285,"idseason":60,"idteam":85064,"dateAdded":"2025-08-29T00:00:00+00:00","dateRemoved":null,"playerNumber":0},{"idplayer":37259,"idseason":60,"idteam":85064,"dateAdded":"2025-08-29T00:00:00+00:00","dateRemoved":null,"playerNumber":0}]'
+  recorded_at: Sat, 27 Jun 2026 16:17:12 GMT
+recorded_with: VCR 6.4.0
