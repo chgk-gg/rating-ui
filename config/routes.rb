@@ -1,23 +1,28 @@
 Rails.application.routes.draw do
   mount MissionControl::Jobs::Engine, at: "/jobs"
 
-  get "reindex", to: "reindex#reindex"
-  get "ping", to: "healthcheck#ping"
-  get "reset_cache", to: "cache#reset"
-  get "recreate_views/:model", to: "materialized_views#recreate_views"
-  get "recalculate_truedl/:model", to: "true_dls#recalculate"
-  get "mau", to: "reports#mau"
-  get "rules", to: "rules#index"
+  # These routes only ever serve HTML. Disable format parsing so requests with
+  # an extension (e.g. `.json` from crawlers) 404 at routing instead of reaching
+  # a controller and raising MissingTemplate. The :api namespace below is exempt.
+  scope format: false do
+    get "reindex", to: "reindex#reindex"
+    get "ping", to: "healthcheck#ping"
+    get "reset_cache", to: "cache#reset"
+    get "recreate_views/:model", to: "materialized_views#recreate_views"
+    get "recalculate_truedl/:model", to: "true_dls#recalculate"
+    get "mau", to: "reports#mau"
+    get "rules", to: "rules#index"
 
-  get ":model/tournaments/", to: "tournaments#index", as: "tournaments"
-  get ":model/tournament/:tournament_id", to: "tournaments#show", as: "tournament"
-  get ":model/team/:team_id", to: "teams#show", as: "team"
-  get ":model/team/:team_id/old_tournaments", to: "teams#old_tournaments", as: "team_old_tournaments"
-  get ":model/player/:player_id", to: "players#show", as: "player"
-  get ":model/player/:player_id/old_tournaments", to: "players#old_tournaments", as: "player_old_tournaments"
-  get ":model/players(/:release_id)", to: "player_releases#show", as: "player_release"
-  get ":model(/:release_id)", to: "releases#show", as: "release"
-  get ":model/tournament_rating_predictions/:tournament_id", to: "rating_predictions#show"
+    get ":model/tournaments/", to: "tournaments#index", as: "tournaments"
+    get ":model/tournament/:tournament_id", to: "tournaments#show", as: "tournament"
+    get ":model/team/:team_id", to: "teams#show", as: "team"
+    get ":model/team/:team_id/old_tournaments", to: "teams#old_tournaments", as: "team_old_tournaments"
+    get ":model/player/:player_id", to: "players#show", as: "player"
+    get ":model/player/:player_id/old_tournaments", to: "players#old_tournaments", as: "player_old_tournaments"
+    get ":model/players(/:release_id)", to: "player_releases#show", as: "player_release"
+    get ":model(/:release_id)", to: "releases#show", as: "release"
+    get ":model/tournament_rating_predictions/:tournament_id", to: "rating_predictions#show"
+  end
 
   namespace :api do
     namespace :v1 do
