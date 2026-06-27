@@ -69,3 +69,9 @@ Rails/ApplicationController:
 
 Rails/RootPublicPath:
   Enabled: false
+
+Style/RedundantStructKeywordInit:
+  Enabled: false
+
+Rails/StrongParametersExpect:
+  Enabled: false
