@@ -45,6 +45,11 @@ production:
     class: RulesJob
     schedule: every day at 8:15
 
+  # Rating tournaments that have results but no calculated ratings
+  missing_ratings:
+    class: MissingRatingsJob
+    schedule: every day at 8:30
+
   # Names and towns for teams
   teams:
     class: TeamsJob
