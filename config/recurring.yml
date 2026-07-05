@@ -93,3 +93,48 @@ production:
     class: TrueDLForRecentTournamentsJob
     args: [ "b", 365 ]
     schedule: every Sunday at 14:15
+
+  # Rating calculation runs on run-once Fly machines (see RatingCalculationJob).
+  # Once a week we recalculate each past season; releases are on Thursdays.
+  rating_calculation_2021:
+    class: RatingCalculationJob
+    args: [ { first_release_date: "2021-09-09", last_release_date: "2021-12-30" } ]
+    schedule: 30 1 * * MON
+
+  rating_calculation_2022:
+    class: RatingCalculationJob
+    args: [ { first_release_date: "2022-01-06", last_release_date: "2022-12-29" } ]
+    schedule: 30 1 * * TUE
+
+  rating_calculation_2023:
+    class: RatingCalculationJob
+    args: [ { first_release_date: "2023-01-05", last_release_date: "2023-12-28" } ]
+    schedule: 30 1 * * WED
+
+  rating_calculation_2024:
+    class: RatingCalculationJob
+    args: [ { first_release_date: "2024-01-04", last_release_date: "2024-12-26" } ]
+    schedule: 30 1 * * THU
+
+  rating_calculation_2025:
+    class: RatingCalculationJob
+    args: [ { first_release_date: "2025-01-02", last_release_date: "2025-12-25" } ]
+    schedule: 30 1 * * FRI
+
+  rating_calculation_2026:
+    class: RatingCalculationJob
+    args: [ { first_release_date: "2026-01-01" } ]
+    schedule: 30 14 * * SUN
+
+  # Calculate ratings for the past three weeks as soon as results are open
+  # (results are imported at 21:00 by just_opened_tournament_results)
+  rating_calculation_three_weeks:
+    class: RatingCalculationJob
+    args: [ { weeks: 3 } ]
+    schedule: 10 21 * * *
+
+  # Calculate ratings for more recent tournaments a bit later
+  rating_calculation_eight_weeks:
+    class: RatingCalculationJob
+    args: [ { weeks: 8 } ]
+    schedule: 10 23 * * *
