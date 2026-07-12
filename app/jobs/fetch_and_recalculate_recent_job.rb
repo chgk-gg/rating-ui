@@ -26,9 +26,13 @@ class FetchAndRecalculateRecentJob < ApplicationJob
   end
 
   def fetches_pending?
-    SolidQueue::Job
-      .where(class_name: SingleTournamentResultsJob.name, finished_at: nil)
-      .where.not(id: SolidQueue::FailedExecution.select(:job_id))
-      .exists?
+    # Jobs run inside the Rails executor, which enables the query cache.
+    # Without `uncached`, the first result would be returned for every call of this method.
+    SolidQueue::Record.uncached do
+      SolidQueue::Job
+        .where(class_name: SingleTournamentResultsJob.name, finished_at: nil)
+        .where.not(id: SolidQueue::FailedExecution.select(:job_id))
+        .exists?
+    end
   end
 end
