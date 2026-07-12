@@ -23,6 +23,9 @@ require "capybara-screenshot/minitest"
 require "mocha/minitest"
 require_relative "factories"
 
+# The chgk.info API rate limiter would add ~1s of sleep per client call, even under VCR.
+Limiter::Clock.instance.define_singleton_method(:sleep) { |_interval| }
+
 class ActionDispatch::IntegrationTest
   include ActiveRecord::TestFixtures
   include Capybara::DSL
