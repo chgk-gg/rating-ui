@@ -20,6 +20,7 @@ class FetchAndRecalculateRecentJob < ApplicationJob
     while fetches_pending?
       raise "tournament fetches still pending after #{MAX_WAIT.inspect}" if Time.current >= deadline
 
+      Rails.logger.info "SingleTournamentResultsJob pending, will recheck in #{POLL_INTERVAL} seconds"
       sleep POLL_INTERVAL
     end
   end
