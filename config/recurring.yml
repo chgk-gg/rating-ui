@@ -6,9 +6,8 @@ production:
     schedule: 35 */8 * * *
 
   # Many tournaments open their results at 20:59 UTC
-  just_opened_tournament_results:
-    class: RecentTournamentResultsJob
-    args: [ 3 ]
+  fetch_and_recalculate_recent:
+    class: FetchAndRecalculateRecentJob
     schedule: 0 21 * * *
 
   # Once a week we update results and rosters for all tournaments in the past year
@@ -130,13 +129,6 @@ production:
     class: RatingCalculationJob
     args: [ { first_release_date: "2026-01-01" } ]
     schedule: 30 14 * * SUN
-
-  # Calculate ratings for the past three weeks as soon as results are open
-  # (results are imported at 21:00 by just_opened_tournament_results)
-  rating_calculation_three_weeks:
-    class: RatingCalculationJob
-    args: [ { weeks: 3 } ]
-    schedule: 10 21 * * *
 
   # Calculate ratings for more recent tournaments a bit later
   rating_calculation_eight_weeks:
