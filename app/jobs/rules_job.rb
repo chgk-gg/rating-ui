@@ -1,4 +1,6 @@
 class RulesJob < ApplicationJob
+  queue_with_priority HIGH_PRIORITY
+
   TELEGRAM_MAX_MESSAGE_LENGTH = 4094 # 4096 - 2 for newlines
 
   def initialize(*args)

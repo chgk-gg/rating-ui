@@ -15,11 +15,13 @@ production:
     class: RecentTournamentResultsJob
     args: [ 365 ]
     schedule: every Wednesday at 14:15
+    priority: 2 # low
 
   # Once a week we update results and rosters for all rating tournaments since September 2021
   all_rating_tournament_results:
     class: AllRatingTournamentResultsJob
     schedule: every Thursday at 14:15
+    priority: 2 # low
 
   # Once a day we refresh metadata for recently updated tournaments
   recent_tournament_metadata:

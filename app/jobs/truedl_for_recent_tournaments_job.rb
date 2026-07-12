@@ -4,7 +4,8 @@ require_relative "../lib/truedl_calculator"
 class TrueDLForRecentTournamentsJob < ApplicationJob
   include ActiveJob::Continuable
 
-  queue_as :wrappers
+  queue_as :transform
+  queue_with_priority MEDIUM_PRIORITY
 
   def perform(model_name, days)
     model = Model.find_by(name: model_name)

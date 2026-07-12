@@ -1,5 +1,6 @@
 class TownsJob < ApplicationJob
   queue_as :chgk_info_import
+  queue_with_priority LOW_PRIORITY
   limits_concurrency to: 1, key: :chgk_info_api
 
   attr_reader :api_client

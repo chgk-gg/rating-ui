@@ -1,5 +1,6 @@
 class MachineDestructionJob < ApplicationJob
   queue_as :rating_calculation
+  queue_with_priority MEDIUM_PRIORITY
 
   retry_on Fly::MachinesClient::Error, wait: :polynomially_longer, attempts: 5
 

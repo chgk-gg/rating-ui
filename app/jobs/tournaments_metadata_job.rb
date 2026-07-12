@@ -1,5 +1,6 @@
 class TournamentsMetadataJob < ApplicationJob
   queue_as :chgk_info_import
+  queue_with_priority MEDIUM_PRIORITY
   limits_concurrency to: 1, key: :chgk_info_api
 
   attr_reader :category, :api_client

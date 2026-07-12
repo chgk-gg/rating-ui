@@ -1,5 +1,6 @@
 class MaterializedViewsJob < ApplicationJob
   queue_as :transform
+  queue_with_priority MEDIUM_PRIORITY
 
   ViewDefinition = Data.define(:name, :query, :index_columns, :unique_index_columns)
 

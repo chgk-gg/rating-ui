@@ -6,6 +6,8 @@ class RatingCalculationJob < ApplicationJob
   MACHINE_RESOURCES = {cpu_kind: "shared", cpus: 4, memory_mb: 2048}.freeze
 
   queue_as :rating_calculation
+  queue_with_priority HIGH_PRIORITY
+
   # duration must cover the whole run: once the concurrency semaphore expires
   # (default 3 minutes), a second enqueued job would be unblocked and spin up a
   # parallel machine. Keep it at least as long as the job can run.

@@ -1,4 +1,6 @@
 class MissingRatingsJob < ApplicationJob
+  queue_with_priority HIGH_PRIORITY
+
   MAX_TOURNAMENTS = 5
 
   def perform

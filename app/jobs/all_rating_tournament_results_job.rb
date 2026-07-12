@@ -3,7 +3,7 @@ class AllRatingTournamentResultsJob < ApplicationJob
 
   def perform
     single_tournament_jobs = tournaments
-      .map { |tournament_id| SingleTournamentResultsJob.new(tournament_id) }
+      .map { |tournament_id| SingleTournamentResultsJob.new(tournament_id).tap { it.priority = priority } }
 
     ActiveJob.perform_all_later(single_tournament_jobs)
   end

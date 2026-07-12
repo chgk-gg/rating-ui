@@ -4,6 +4,7 @@ class FetchAndRecalculateRecentJob < ApplicationJob
   MAX_WAIT = 1.hour
 
   queue_as :wrappers
+  queue_with_priority HIGH_PRIORITY
 
   def perform
     RecentTournamentResultsJob.perform_now(WEEKS * 7)

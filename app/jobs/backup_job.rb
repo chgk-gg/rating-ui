@@ -1,5 +1,6 @@
 class BackupJob < ApplicationJob
   queue_as :backup
+  queue_with_priority LOW_PRIORITY
 
   def perform
     local_backup_file_name = Rails.root.join("tmp/backups/rating.backup")
