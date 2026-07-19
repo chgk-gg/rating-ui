@@ -3,7 +3,7 @@ class RatingCalculationJob < ApplicationJob
   MAX_CONSECUTIVE_WAIT_ERRORS = 5
   WAIT_ERROR_PAUSE = 30
   MAX_RUNTIME = 6.hours
-  MACHINE_RESOURCES = {cpu_kind: "shared", cpus: 4, memory_mb: 2048}.freeze
+  MACHINE_RESOURCES = {cpu_kind: "shared", cpus: 4, memory_mb: 4096}.freeze
 
   queue_as :rating_calculation
   queue_with_priority HIGH_PRIORITY
