@@ -297,7 +297,6 @@ GEM
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
     rake (13.4.2)
-    rapidjson (0.4.0)
     rbs (4.2.0)
       logger
       prism (>= 1.6.0)
@@ -445,7 +444,6 @@ DEPENDENCIES
   rack-session
   rails (= 8.1.3)
   rails-i18n
-  rapidjson
   redis
   rubocop
   rubocop-rails
@@ -571,7 +569,6 @@ CHECKSUMS
   railties (8.1.3) sha256=913eb0e0cb520aac687ffd74916bd726d48fa21f47833c6292576ef6a286de22
   rainbow (3.1.1) sha256=039491aa3a89f42efa1d6dec2fc4e62ede96eb6acd95e52f1ad581182b79bc6a
   rake (13.4.2) sha256=cb825b2bd5f1f8e91ca37bddb4b9aaf345551b4731da62949be002fa89283701
-  rapidjson (0.4.0) sha256=a1dd5caefa6da363ae752aa7615c929cf118ac22036d6df135c21af651a6e874
   rbs (4.2.0) sha256=51f7b886dcc05bc09e10b901daa6a81829f6adc03101d6ca9ea4aac6103e0674
   rdoc (8.0.0) sha256=03bf8c08a9639658855a0cfd77c0abca8325c227693f7f33f82957811348c469
   redis (5.4.1) sha256=b5e675b57ad22b15c9bcc765d5ac26f60b675408af916d31527af9bd5a81faae
