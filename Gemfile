@@ -4,7 +4,6 @@ gem "aws-sdk-s3"
 gem "bootsnap", require: false
 gem "connection_pool"
 gem "cssbundling-rails"
-gem "hiredis"
 gem "honeybadger"
 gem "httparty"
 gem "jsbundling-rails"
